@@ -1,6 +1,6 @@
 ﻿<html>
 <head>
-	<meta charset="utf-8">
+	<meta  http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><?=$title;?></title>
 	<?=link_tag('/data/css/style.css');?>
 </head>
@@ -8,7 +8,7 @@
 	<div id = "page">
 	<div id = "header"></div>
 	<div id = "content">
-		<h1><?=$title;?></h1>
+		<h1><?=$cat_name;?></h1>
 		<?php
 		//Выводим путь к категории
 		$parents = count($path); //Кол-во родителей категории
