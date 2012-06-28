@@ -6,39 +6,45 @@ class Catalog extends CI_Controller{
     { 
         parent::__construct();
 		$this->load->helper(array('url', 'html'));	
+		$this->load->model('catalog_model');
 	}
 	
 	function index()
 	{
-		category(0);
+		$this->category(0);
 	}
 	
 	function category($cat_id)
 	{
-		//Получаем название текущей категории
-		if ($cat_id) //Берем из БД
+		// Если категория существует
+		if($this->catalog_model->category_exist($cat_id))
 		{
-			$query = $this->db->get_where('categories', array('id' => $cat_id));
-			$result = $query->row();
-			$data['title'] = $result->category;
+			// Получение названия категории
+			if ($cat_id == 0)		// Если 0 - то каталог
+			{
+				$data['cat_name'] = 'Каталог';
+			}
+			else					// Иначе получаем название из БД
+			{
+				$data['cat_name'] = $this->catalog_model->get_category_name($cat_id);
+			}
+			
+			// Получаем содержимое категории
+			$data['content'] = $this->catalog_model->get_category_content($cat_id);
+			
+			// Получаем путь к категории
+			$data['path'] = $this->catalog_model->get_category_path($cat_id);
+			
+			// Вызываем представление категории
+			$this->load->view('category_view', $data);
 		}
-		else $data['title'] = 'Каталог'; //Если id=0, то корневой каталог
-		
-		//Получаем содержимое категории
-		$data['content'] = $this->db->get_where('categories', array('parent_id' => $cat_id))->result();
-		
-		//Путь к категории
-		$path = array();
-		while ($cat_id > 0)
+		else // Если категория не существует
 		{
-			$path_query = $this->db->get_where('categories', array('id' => $cat_id))->row();
-			$path[$cat_id] = $path_query->category;
-			$cat_id = $path_query->parent_id;
+			$data['title'] = 'Ошибка';
+			$data['text'] = 'Указанная категория не существует';
+			$this->load->view('invalid_category_view', $data);
 		}
-		$path['0'] = 'Каталог';
-		$data['path'] = array_reverse($path, true); //Инверсия массива, чтобы категории шли по порядку
 		
-		$this->load->view('category_view', $data);
 	}
 }
 
