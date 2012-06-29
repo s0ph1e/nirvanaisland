@@ -93,7 +93,7 @@ class CI_Upload {
 							'file_ext'			=> "",
 							'upload_path'		=> "",
 							'overwrite'			=> FALSE,
-							'encrypt_name'		=> FALSE,
+							'encrypt_name'		=> TRUE,
 							'is_image'			=> FALSE,
 							'image_width'		=> '',
 							'image_height'		=> '',
