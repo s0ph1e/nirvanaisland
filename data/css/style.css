@@ -21,7 +21,7 @@ div {
 	position: relative;
 }
 #header, #footer{
-	height: 100px;
+	height: 30px;
 	background: #cccccc;
 }
 #header {
@@ -39,6 +39,7 @@ div {
 }
 .error{
 	color: red;
+	font-size: 12px;
 }
 form {
 	margin: 20px;
