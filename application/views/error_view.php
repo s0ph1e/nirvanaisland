@@ -9,7 +9,7 @@
 	<div id = "header"></div>
 	<div id = "content">
 		<h1>Ошибка</h1>
-		<p class = "error"><?=$text;?></p>
+		<p><?=$text;?></p>
 		<p><?=anchor(getenv("HTTP_REFERER"), 'Вернуться назад');?></p>
 	</div>
 	<div id = "footer"></div>

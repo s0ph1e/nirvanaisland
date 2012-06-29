@@ -35,7 +35,7 @@
 		echo "</ul>";
 		
 		// Ссылка на добавление товара
-		echo '<br><br>', anchor('catalog/add_item/'.$id.'/csv', 'Добавить новый товар');
+		echo '<br><br>', anchor('catalog/upload_form/'.$cat_id, 'Добавить новый товар');
 		?>
 	</div>
 	<div id = "footer"></div>
