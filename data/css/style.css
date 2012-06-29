@@ -14,7 +14,7 @@ div {
 	padding:0;
 }
 #page {
-	width: 75%;
+	width: 850px;
 	min-height: 100%;
 	margin: 0 auto;
 	background: #ffffff;
@@ -30,9 +30,31 @@ div {
 #content {
 	min-height: 500px;
 	padding: 30px;
+	margin-bottom: 30px; 
 }
 #footer{
 	width: 100%;
 	position: absolute;
 	bottom:0px;
+}
+.error{
+	color: red;
+}
+form {
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #cccccc;
+	width: 400px;
+	text-align:center;
+}
+input[type="text"], input[type="file"], textarea {
+	width: 230px;
+}
+table{	
+	border: 0px;
+	}
+table td{
+	padding: 2px;
+	border: 0px;
+	text-align:right;
 }
