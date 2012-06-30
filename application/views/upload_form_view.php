@@ -16,11 +16,11 @@
 		echo form_open_multipart('catalog/upload_form/'.$cat_id);
 		echo <<<END
 		<table id="add_table" border='1'>
-		<tr><td>Артикyл</td><td><input type="text" name="article"/></td></tr>
-		<tr><td>Имя</td><td><input type="text" name="name"/></td></tr>
-		<tr><td>Описание</td><td><textarea rows = "3" name="description"></textarea></td></tr>
-		<tr><td>Цена</td><td><input type="text" name="price"/></td></tr>
-		<tr><td>Изображение</td><td><input type="file" name="item_image" size="20" /></td></tr>
+		<tr><td>Артикyл</td><td><input type="text" name="article" class="myinput"/></td></tr>
+		<tr><td>Имя</td><td><input type="text" name="name" class="myinput"/></td></tr>
+		<tr><td>Описание</td><td><textarea rows = "3" name="description" class="myinput"></textarea></td></tr>
+		<tr><td>Цена</td><td><input type="text" name="price" class="myinput"/></td></tr>
+		<tr><td>Изображение</td><td><input type="file" name="item_image" class="myinput"/></td></tr>
 		<tr><td colspan='2'><center><input type="submit" name="submit_form" value="Загрузить" /></td></tr>
 		</table></form>
 END;

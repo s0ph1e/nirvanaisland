@@ -45,12 +45,13 @@ form {
 	margin: 20px;
 	padding: 10px;
 	border: 1px solid #cccccc;
-	width: 400px;
+	width: 420px;
 	text-align:center;
 }
-input[type="text"], input[type="file"], textarea {
+
+.myinput{
 	font:normal 14px 'Verdana'; color:#777777;
-	width: 250px;
+	width: 250px;	
 }
 table{	
 	border: 0px;
