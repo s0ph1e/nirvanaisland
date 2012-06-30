@@ -49,7 +49,8 @@ class Catalog extends CI_Controller{
 		}	
 	}
 	
-	function validate_upload_parameters($cat_id, $type)	// Поверка все ли параметры указаны и корректны и вызов функции в соответствии с типом загрузки
+	// Поверка все ли параметры указаны и корректны и вызов функции в соответствии с типом загрузки
+	function validate_upload_parameters($cat_id, $type)	
 	{
 		if(!isset($cat_id)||!isset($type)) // Если нет параметра
 		{
@@ -63,12 +64,16 @@ class Catalog extends CI_Controller{
 		}	
 	}
 	
-	function upload_csv($cat_id)		
-	{
+	function upload_csv($cat_id)
+	{	
+		// Проверка, чтоб в адресе не было написано всякой ерунды
+		$this->validate_upload_parameters($cat_id, 'csv');
+		
+		// Данные для передачи во вьюшку
 		$data['type'] = 'csv';
 		$data['cat_id'] = $cat_id;
 		
-		$this->validate_upload_parameters($cat_id, 'csv');
+		// Параметры загружаемого файла
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'csv';
 		$config['max_size']	= '2048';
@@ -76,26 +81,32 @@ class Catalog extends CI_Controller{
 		// Передаем параметры в библиотеку загрузки
 		$this->load->library('upload', $config);
 	
-		// Обработка ошибок загрузки
-		if (!$this->upload->do_upload('csv_item'))
+		// Если форма была отправлена
+		if(isset($_POST['submit_csv']))				
 		{
-			$data['text'] = $this->upload->display_errors();
-			$this->load->view('upload_csv_view', $data);
-		}	
-		else
-		{
-			// Сообщение об успешном добавлении
-			$data['text'] = 'Данные успешно загружены на сервер. ';
-			$this->load->view('success_upload_view', $data);
+			if (!$this->upload->do_upload('csv_item'))	// Если что-то не так с файлом
+			{
+				$data['text'] = $this->upload->display_errors();
+				$this->load->view('upload_csv_view', $data);	// Показываем ошибку перед формой
+			}	
+			else		// Если с файлом все ок
+			{
+				$data['text'] = 'Данные успешно загружены на сервер. ';
+				$this->load->view('success_upload_view', $data);
+			}
 		}
-		
+		else		
+		{
+			$this->load->view('upload_csv_view', $data);
+		}
 	}
 	
-	function upload_form($cat_id)
+	function upload_form($cat_id)		
 	{
 		// Проверка, чтоб в адресе не было написано всякой ерунды
 		$this->validate_upload_parameters($cat_id, 'form');
 		
+		// Данные для передачи во вьюшку
 		$data['cat_id'] = $cat_id;
 		
 		// Параметры загружаемого файла
@@ -106,38 +117,48 @@ class Catalog extends CI_Controller{
 		// Передаем параметры в библиотеку загрузки
 		$this->load->library('upload', $config);
 		
+		// Библиотека валидации форм
 		$this->load->library('form_validation');
-			
+		
+		// Установка правил валидации для полей
 		$this->form_validation->set_rules('article', 'Артикул', 'required');
 		$this->form_validation->set_rules('name', 'Имя', 'required');
 		$this->form_validation->set_rules('description', 'Описание', 'required');
 		$this->form_validation->set_rules('price', 'Цена', 'required');
 		
-		if ($this->form_validation->run() == FALSE)		// Если ошибки при заполнении полей
+		// Если отправлена форма
+		if(isset($_POST['submit_form']))		
 		{
-			$data['text']= validation_errors();
-			$this->load->view('upload_form_view', $data);
-		}
-		elseif (!$this->upload->do_upload('item_image'))		// Ошибка отправления файла
-		{
-			$data['text']=$this->upload->display_errors();
-			$this->load->view('upload_form_view', $data);
+			$success_upload = $this->upload->do_upload('item_image'); // Загружен ли файл
+			
+			// Если все хорошо и с полями, и с файлом
+			if($this->form_validation->run()&&$success_upload)
+			{
+				// Подготовка данных для передачи в модель
+				$image = $this->upload->data();			// Загруженный файл
+				$_POST['image'] = $image['full_path'];	// Полный путь к файлу
+				$_POST['parent_id'] = $cat_id;			// Категория товара
+				
+				// Добавление записи в БД
+				$this->catalog_model->insert_item($_POST);
+				
+				// Сообщение об успешном добавлении
+				$data['type'] = 'form';
+				$data['cat_id'] = $cat_id;
+				$data['text'] = 'Данные успешно загружены на сервер. ';
+				$this->load->view('success_upload_view', $data);
+			}
+			else 	// Если что-то не так с полями или загрузкой файла
+			{
+				$data['text'] .= validation_errors();
+				$data['text'].=$this->upload->display_errors();
+				$this->load->view('upload_form_view', $data);
+			}
 		}
 		else
 		{
-			$image = $this->upload->data();
-			$_POST['parent_id'] = $cat_id;
-			$_POST['image'] = $image['full_path'];
-			
-			// Добавление записи в БД
-			$this->catalog_model->insert_item($_POST);
-			
-			// Сообщение об успешном добавлении
-			$data['type'] = 'form';
-			$data['cat_id'] = $cat_id;
-			$data['text'] = 'Данные успешно загружены на сервер. ';
-			$this->load->view('success_upload_view', $data);
-		}
+			$this->load->view('upload_form_view', $data);
+		}	
 	}
 	
 }
