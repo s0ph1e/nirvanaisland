@@ -49,7 +49,8 @@ form {
 	text-align:center;
 }
 input[type="text"], input[type="file"], textarea {
-	width: 230px;
+	font:normal 14px 'Verdana'; color:#777777;
+	width: 250px;
 }
 table{	
 	border: 0px;
