@@ -15,7 +15,7 @@
 		if ($text) echo $text;
 		echo form_open_multipart('catalog/upload_csv/'.$cat_id);
 		echo <<<END
-		<input type="file" name="csv_item" size="20" />
+		<input type="file" name="csv_item" class="myinput" />
 		<input type="submit" name="submit_csv" value="Загрузить" />
 		</form>
 END;
