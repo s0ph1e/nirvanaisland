@@ -10,7 +10,8 @@
 	<div id = "content">
 		<h1>Добавлено!</h1>
 		<p><?=$text;?></p>
-		<p><?=anchor('catalog/upload_'.$type.'/'.$cat_id, 'Загрузить еще');?></p>
+		<p><?=anchor('catalog/upload_'.$type.'/'.$cat_id, 'Загрузить еще');?>
+		<?=anchor('catalog/category/'.$cat_id, 'Вернуться к категории');?></p>
 	</div>
 	<div id = "footer"></div>
 	</div>
