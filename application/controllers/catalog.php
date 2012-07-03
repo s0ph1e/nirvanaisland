@@ -32,6 +32,7 @@ class Catalog extends CI_Controller{
 			
 			// Получаем содержимое категории
 			$data['content'] = $this->catalog_model->get_category_content($cat_id);
+			$data['items'] = $this->catalog_model->get_category_items($cat_id);
 			
 			// Получаем путь к категории
 			$data['path'] = $this->catalog_model->get_category_path($cat_id);
@@ -50,9 +51,9 @@ class Catalog extends CI_Controller{
 	}
 	
 	// Поверка все ли параметры указаны и корректны и вызов функции в соответствии с типом загрузки
-	function validate_upload_parameters($cat_id, $type)	
+	function validate_parameters($cat_id)	
 	{
-		if(!isset($cat_id)||!isset($type)) // Если нет параметра
+		if(!isset($cat_id)) // Если нет параметра
 		{
 			$data['text'] = 'Не указана категория для добавления товара.';
 			$this->load->view('error_view', $data);
@@ -67,7 +68,7 @@ class Catalog extends CI_Controller{
 	function upload_csv($cat_id)
 	{	
 		// Проверка, чтоб в адресе не было написано всякой ерунды
-		$this->validate_upload_parameters($cat_id, 'csv');
+		$this->validate_parameters($cat_id);
 		
 		// Данные для передачи во вьюшку
 		$data['type'] = 'csv';
@@ -104,7 +105,7 @@ class Catalog extends CI_Controller{
 	function upload_form($cat_id)		
 	{
 		// Проверка, чтоб в адресе не было написано всякой ерунды
-		$this->validate_upload_parameters($cat_id, 'form');
+		$this->validate_parameters($cat_id);
 		
 		// Данные для передачи во вьюшку
 		$data['cat_id'] = $cat_id;
@@ -121,10 +122,10 @@ class Catalog extends CI_Controller{
 		$this->load->library('form_validation');
 		
 		// Установка правил валидации для полей
-		$this->form_validation->set_rules('article', 'Артикул', 'required');
-		$this->form_validation->set_rules('name', 'Имя', 'required');
+		$this->form_validation->set_rules('article', 'Артикул', 'required|min_length[5]|max_length[8]');
+		$this->form_validation->set_rules('name', 'Имя', 'required|min_length[5]|max_length[32]');
 		$this->form_validation->set_rules('description', 'Описание', 'required');
-		$this->form_validation->set_rules('price', 'Цена', 'required');
+		$this->form_validation->set_rules('price', 'Цена', 'required|decimal|greater_than[0]');
 		
 		// Если отправлена форма
 		if(isset($_POST['submit_form']))		
@@ -160,7 +161,47 @@ class Catalog extends CI_Controller{
 			$this->load->view('upload_form_view', $data);
 		}	
 	}
-	
-}
 
+	function add_category($cat_id)
+	{
+		// Проверка категории
+		$this->validate_parameters($cat_id);
+		
+		// Данные для передачи во вьюшку
+		$data['cat_id'] = $cat_id;
+		
+		// Библиотека валидации форм
+		$this->load->library('form_validation');
+		
+		// Установка правил валидации
+		$this->form_validation->set_rules('category', 'Категория', 'required|min_length[5]|max_length[32]');
+		
+		// Если отправлена форма
+		if(isset($_POST['submit_form']))		
+		{
+			// Если все хорошо
+			if($this->form_validation->run())
+			{
+				// Подготовка данных для передачи в модель
+				$_POST['parent_id'] = $cat_id;			// Категория товара
+				
+				// Добавление записи в БД
+				$this->catalog_model->insert_category($_POST);
+				
+				// Сообщение об успешном добавлении
+				$data['text'] = 'Данные успешно загружены на сервер. ';
+				$this->load->view('success_upload_view', $data);
+			}
+			else 	// Если что-то не так с полем
+			{
+				$data['text'] .= validation_errors();
+				$this->load->view('add_category_view', $data);
+			}
+		}
+		else
+		{
+			$this->load->view('add_category_view', $data);
+		}	
+	}
+}
 ?>
