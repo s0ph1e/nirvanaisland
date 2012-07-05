@@ -5,9 +5,10 @@ class Catalog extends CI_Controller{
 	public function __construct() 
     { 
         parent::__construct();
-		$this->load->helper(array('url', 'html', 'form'));	
+		$this->load->helper(array('url', 'html', 'form', 'text'));	
 		$this->load->model('catalog_model');
 		$this->load->library('csvreader');
+		$this->load->library('table');
 	}
 	
 	function index()
@@ -30,8 +31,10 @@ class Catalog extends CI_Controller{
 				$data['cat_name'] = $this->catalog_model->get_category_name($cat_id);
 			}
 			
-			// Получаем содержимое категории
-			$data['content'] = $this->catalog_model->get_category_content($cat_id);
+			// Получаем подкатегории
+			$data['subcategories'] = $this->catalog_model->get_subcategories($cat_id);
+			
+			// Получение товаров
 			$data['items'] = $this->catalog_model->get_category_items($cat_id);
 			
 			// Получаем путь к категории
@@ -111,7 +114,7 @@ class Catalog extends CI_Controller{
 		$data['cat_id'] = $cat_id;
 		
 		// Параметры загружаемого файла
-		$config['upload_path'] = './uploads/';
+		$config['upload_path'] = 'uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '2048';
 		
@@ -137,11 +140,31 @@ class Catalog extends CI_Controller{
 			{
 				// Подготовка данных для передачи в модель
 				$image = $this->upload->data();			// Загруженный файл
-				$_POST['image'] = $image['full_path'];	// Полный путь к файлу
-				$_POST['parent_id'] = $cat_id;			// Категория товара
+				
+				// Resize картинки
+				$config['image_library'] = 'gd2';
+				$config['source_image']	= $image['full_path'];
+				$config['create_thumb'] = TRUE;
+				$config['width']	 = 180;
+				$config['height']	= 150;
+
+				$this->load->library('image_lib', $config); 
+				if ( ! $this->image_lib->resize())
+				{
+					$data['text'] = $this->image_lib->display_errors();
+					$this->load->view('upload_form_view', $data);
+				}
+				
+				$db['image'] = $config['upload_path'].$image['file_name'];	// Путь к файлу
+				$db['thumb'] = $config['upload_path'].$image['raw_name'].'_thumb'.$image['file_ext']; // Путь к thumb
+				$db['parent_id'] = $cat_id;			// Категория товара
+				$db['article'] = $_POST['article'];
+				$db['name'] = $_POST['name'];
+				$db['description'] = $_POST['description'];
+				$db['price'] = $_POST['price'];
 				
 				// Добавление записи в БД
-				$this->catalog_model->insert_item($_POST);
+				$this->catalog_model->insert_item($db);
 				
 				// Сообщение об успешном добавлении
 				$data['type'] = 'form';
