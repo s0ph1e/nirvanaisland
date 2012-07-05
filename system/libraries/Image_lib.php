@@ -1519,7 +1519,7 @@ class CI_Image_lib {
 	 * @param	string
 	 * @return	string
 	 */
-	function display_errors($open = '<p>', $close = '</p>')
+	function display_errors($open = '', $close = '')
 	{
 		$str = '';
 		foreach ($this->error_msg as $val)
