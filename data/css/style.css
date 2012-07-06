@@ -1,4 +1,4 @@
-﻿body
+body
 {
 	font-family:arial, verdana, sans-serif;
 	padding:0;
@@ -103,21 +103,18 @@ td{
 	background:url(../images/menu_selected_background.png) repeat-x center;
 }
 /*------------------------------------center content--------------------*/
-#main{
-	width:900px;
-	text-align:left;
-}
-
 #content{
+	width:880px;
+	text-align:left;
 	padding:10px;
 }
-#category{
+#name{
 	margin:20px 20px 20px 5px;
 	color:#990000;
 	font-size: 25px;
 	font-weight:bold;
 }
-#category_path{
+#path{
 	margin:5px;
 	padding: 10px;
 	background:#f9f9f9;
@@ -165,6 +162,12 @@ td{
 }
 #item_details{
 	margin-left: 195px;
+}
+#error{
+	margin:5px;
+	padding: 20px;
+	background:#f9f9f9;
+	border: 1px dashed #b2b2b2;
 }
 /*---------------footer------------------------*/
 .footer{

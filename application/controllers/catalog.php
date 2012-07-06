@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class Catalog extends CI_Controller{
 	
