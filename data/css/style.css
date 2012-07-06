@@ -114,13 +114,14 @@ td{
 #category{
 	margin:20px 20px 20px 5px;
 	color:#990000;
-	font-size: 30px;
+	font-size: 25px;
 	font-weight:bold;
 }
 #category_path{
 	margin:5px;
 	padding: 10px;
 	background:#f9f9f9;
+	border: 1px dashed #b2b2b2;
 }
 #subcategories{
 	background:#f9f9f9;
@@ -159,7 +160,7 @@ td{
 	margin-left: 195px;
 }
 #item_name a{
-	font-size: 20px;
+	font-size: 18px;
 	font-weight:bold;
 }
 #item_details{

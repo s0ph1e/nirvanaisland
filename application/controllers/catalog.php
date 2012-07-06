@@ -19,7 +19,7 @@ class Catalog extends CI_Controller{
 	function category($cat_id)
 	{
 		// Если категория существует
-		if($this->catalog_model->category_exist($cat_id))
+		if($this->catalog_model->category_exist($cat_id)&&isset($cat_id))
 		{
 			// Получение названия категории
 			if ($cat_id == 0)		// Если 0 - то каталог
@@ -44,12 +44,16 @@ class Catalog extends CI_Controller{
 			$data['cat_id'] = $cat_id;
 			
 			// Вызываем представление категории
+			$this->load->view('header', array('title'=>$data['cat_name']));
 			$this->load->view('category_view', $data);
+			$this->load->view('footer');
 		}
 		else // Если категория не существует
 		{
 			$data['text'] = 'Указанная категория не существует';
+			$this->load->view('header', array('title'=>'Ошибка'));
 			$this->load->view('error_view', $data);
+			$this->load->view('footer');
 		}	
 	}
 	
@@ -59,12 +63,16 @@ class Catalog extends CI_Controller{
 		if(!isset($cat_id)) // Если нет параметра
 		{
 			$data['text'] = 'Не указана категория для добавления товара.';
+			$this->load->view('header', array('title'=>'Ошибка'));
 			$this->load->view('error_view', $data);
+			$this->load->view('footer');
 		}
 		elseif (!$this->catalog_model->category_exist($cat_id))	// Если категория не существует
 		{
 			$data['text'] = 'Невозможно добавить товар в несуществующую категорию.';
+			$this->load->view('header', array('title'=>'Ошибка'));
 			$this->load->view('error_view', $data);
+			$this->load->view('footer');
 		}	
 	}
 	
