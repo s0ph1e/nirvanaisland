@@ -42,5 +42,5 @@
 			$items_list[] = $str;			// Добавляем блок объекта в массив
 		}
 		$new_items_list = $this->table->make_columns($items_list, 2);
-		echo $this->table->generate($new_items_list);
+		echo "<div id = 'products'>".$this->table->generate($new_items_list)."</div>";
 	}

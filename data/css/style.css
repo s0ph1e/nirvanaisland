@@ -16,7 +16,7 @@ p{
 	padding:5px 0 5px 0;
 	margin:0px;
 }
-td{
+td, div{
 	vertical-align: top;
 }
 #wrap{
@@ -127,15 +127,21 @@ td{
 	margin: 5px;
 }
 #subcategories table{
-	width:840px;
 	table-layout: fixed;
+	width:840px;
+}
+#products table{
+	table-layout: fixed;
+	width:880px;
 }
 #subcategories td {
 	padding:5px;
 	width:25%;
 	word-wrap: break-word;
 }
+/*-----------------------Отображение товаров в категории---------------------*/
 #item{
+	width:100%;
 	padding:10px;
 	word-wrap: break-word;
 	display: inline-table;
@@ -162,6 +168,35 @@ td{
 }
 #item_details{
 	margin-left: 195px;
+}
+/*---------------------------Просмотр товара-------------------*/
+#view_item{
+	width:850px;
+	display:block;
+	padding:10px;
+	margin:5px;
+	background:url(../images/content_background.png) repeat-x;
+}
+#view_item_img{
+	display:inline-block;
+	height: 320px;
+	width: 400px;
+	border-radius: 10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border: 1px dashed #b2b2b2;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-color: #ffffff;
+}
+#view_item_info{
+	display:inline-block;
+	width: 420px;
+	padding: 10px 0px 0px 20px;
+}
+#view_item_info p{
+	font-size: 16px;
+	text-align:justify;
 }
 #error{
 	margin:5px;

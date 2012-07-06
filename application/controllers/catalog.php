@@ -6,9 +6,10 @@ class Catalog extends CI_Controller{
     { 
         parent::__construct();
 		$this->load->helper(array('url', 'html', 'form', 'text'));	
-		$this->load->model('catalog_model');
+		$this->load->model(array('catalog_model','product_model'));
 		$this->load->library('csvreader');
 		$this->load->library('table');
+		$this->load->library('image_lib');
 	}
 	
 	function index()
@@ -50,9 +51,8 @@ class Catalog extends CI_Controller{
 		}
 		else // Если категория не существует
 		{
-			$data['text'] = 'Указанная категория не существует';
 			$this->load->view('header', array('title'=>'Ошибка'));
-			$this->load->view('error_view', $data);
+			$this->load->view('error_view', array('text' => 'Указанная категория не существует'));
 			$this->load->view('footer');
 		}	
 	}
@@ -62,16 +62,14 @@ class Catalog extends CI_Controller{
 	{
 		if(!isset($cat_id)) // Если нет параметра
 		{
-			$data['text'] = 'Не указана категория для добавления товара.';
 			$this->load->view('header', array('title'=>'Ошибка'));
-			$this->load->view('error_view', $data);
+			$this->load->view('error_view', array('text' => 'Не указана категория для добавления товара.'));
 			$this->load->view('footer');
 		}
 		elseif (!$this->catalog_model->category_exist($cat_id))	// Если категория не существует
 		{
-			$data['text'] = 'Невозможно добавить товар в несуществующую категорию.';
 			$this->load->view('header', array('title'=>'Ошибка'));
-			$this->load->view('error_view', $data);
+			$this->load->view('error_view', array('text' => 'Невозможно добавить товар в несуществующую категорию.'));
 			$this->load->view('footer');
 		}	
 	}
@@ -149,18 +147,36 @@ class Catalog extends CI_Controller{
 				// Подготовка данных для передачи в модель
 				$image = $this->upload->data();			// Загруженный файл
 				
-				// Resize картинки
-				$config['image_library'] = 'gd2';
-				$config['source_image']	= $image['full_path'];
-				$config['create_thumb'] = TRUE;
-				$config['width']	 = 180;
-				$config['height']	= 150;
+				// Создание большого изображения
+				$big['image_library'] = 'gd2';
+				$big['source_image']	= $image['full_path'];
+				$big['create_thumb'] = FALSE;
+				$big['width']	 = 400;
+				$big['height']	= 320;
 
-				$this->load->library('image_lib', $config); 
+				$this->image_lib->clear();
+				$this->image_lib->initialize($big);				
 				if ( ! $this->image_lib->resize())
 				{
-					$data['text'] = $this->image_lib->display_errors();
-					$this->load->view('upload_form_view', $data);
+					$this->load->view('upload_form_view', array('text'=>$this->image_lib->display_errors()));
+					return;
+				}
+				
+				// Создание thumb
+				$thumb['image_library'] = 'gd2';
+				$thumb['source_image']	= $image['full_path'];
+				$thumb['create_thumb'] = TRUE;
+				$thumb['thumb_marker'] = '_thumb';
+				$thumb['width']	 = 180;
+				$thumb['height']	= 150;
+
+				//$this->image_lib->initialize($thumb); 
+				$this->image_lib->clear();
+				$this->image_lib->initialize($thumb); 
+				if ( ! $this->image_lib->resize())
+				{
+					$this->load->view('upload_form_view', array('text'=>$this->image_lib->display_errors()));
+					return;
 				}
 				
 				$db['image'] = $config['upload_path'].$image['file_name'];	// Путь к файлу
@@ -172,7 +188,7 @@ class Catalog extends CI_Controller{
 				$db['price'] = $_POST['price'];
 				
 				// Добавление записи в БД
-				$this->catalog_model->insert_item($db);
+				$this->product_model->insert_product($db);
 				
 				// Сообщение об успешном добавлении
 				$data['type'] = 'form';
