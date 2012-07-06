@@ -10,7 +10,7 @@ class Product_model extends CI_Model{
 	function product_exist($id)  // Проверка существования продукта
 	{
 		$query = $this->db->get_where('items', array('id' => $id));
-		if ($query->num_rows() > 0 || $cat_id == 0)
+		if ($query->num_rows() > 0)
 		{
 			return true;
 		}

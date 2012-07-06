@@ -17,4 +17,13 @@
 	}
 	//Выводим название категории
 	echo "<div id='name'>$name</div>";
+	
+	echo "<div id='view_item'><div id='view_item_img' style='background-image:url(".base_url($image).")'></div>";
+	echo "<div id='view_item_info'>";
+	echo "<p><b>Артикул: </b>".$article."</p>";
+	echo "<p><b>Название: </b>".$name."</p>";
+	echo "<p><b>Описание: </b>".$description."</p>";
+	echo "<p><b>Цена: </b>".$price." грн.</p>";
+	echo "<center><input type='submit' name='add_product' id='add_button' value='В корзину'/>";
+	echo "</div></div>";
 ?>

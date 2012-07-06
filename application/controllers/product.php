@@ -12,7 +12,7 @@ class Product extends CI_Controller{
 	function view($id)
 	{
 		// Если товар существует
-		if($this->product_model->product_exist($id))
+		if($this->product_model->product_exist($id)&&isset($id))
 		{
 			// Получение данных
 			$data = (array)$this->product_model->get_product_info($id);
@@ -28,8 +28,9 @@ class Product extends CI_Controller{
 		}
 		else // Если товар не существует
 		{
-			$data['text'] = 'Указанный товар не существует';
-			$this->load->view('error_view', $data);
+			$this->load->view('header', array('title'=>'Ошибка'));
+			$this->load->view('error_view', array('text' => 'Указанный товар не существует.'));
+			$this->load->view('footer');
 		}
 	}		
 }
