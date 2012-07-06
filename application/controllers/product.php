@@ -11,22 +11,24 @@ class Product extends CI_Controller{
 	
 	function view($id)
 	{
-		// Åñëè òîâàð ñóùåñòâóåò
+		// Ð•ÑÐ»Ð¸ Ñ‚Ð¾Ð²Ð°Ñ€ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚
 		if($this->product_model->product_exist($id))
 		{
-			// Ïîëó÷åíèå äàííûõ
+			// ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 			$data = (array)$this->product_model->get_product_info($id);
 			
-			// Ïîëó÷àåì ïóòü ê òîâàðó
+			// ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ Ð¿ÑƒÑ‚ÑŒ Ðº Ñ‚Ð¾Ð²Ð°Ñ€Ñƒ
 			$data['path'] = $this->catalog_model->get_category_path($data['parent_id']);
 			$data['path'][] = $data['name'];
 			
-			// Âûçûâàåì ïðåäñòàâëåíèå òîâàðà
+			// Ð’Ñ‹Ð·Ñ‹Ð²Ð°ÐµÐ¼ Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ð°
+			$this->load->view('header', array('title'=>$data['name']));
 			$this->load->view('product_view', $data);
+			$this->load->view('footer');
 		}
-		else // Åñëè òîâàð íå ñóùåñòâóåò
+		else // Ð•ÑÐ»Ð¸ Ñ‚Ð¾Ð²Ð°Ñ€ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚
 		{
-			$data['text'] = 'Óêàçàííûé òîâàð íå ñóùåñòâóåò';
+			$data['text'] = 'Ð£ÐºÐ°Ð·Ð°Ð½Ð½Ñ‹Ð¹ Ñ‚Ð¾Ð²Ð°Ñ€ Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚';
 			$this->load->view('error_view', $data);
 		}
 	}		

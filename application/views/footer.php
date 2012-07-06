@@ -1,4 +1,4 @@
-﻿</div>
+</div>
        
 <div class="footer">
 		<a href="#">Главная</a>

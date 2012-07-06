@@ -1,8 +1,8 @@
-﻿	<?php
+<?php
 	// Выводим путь к категории
 	$parents = count($path); // Кол-во родителей категории
 	$counter = 0;					// Счетчик для цикла
-	echo "<p id='category_path'>";
+	echo "<p id='path'>";
 	foreach($path as $id => $category) 
 	{ 	
 		$counter++;
@@ -16,7 +16,7 @@
 		}	
 	}
 	//Выводим название категории
-	echo "<div id='category'>$cat_name</div>";
+	echo "<div id='name'>$cat_name</div>";
 
 	// Выводим категории
 	if($subcategories) // Если подкатегории есть
@@ -35,7 +35,7 @@
 		foreach ($items as $row)
 		{
 			// Выводим картинку и имя
-			$str = "<div id='item'><div id='item_img' style='background-image:url(".base_url($row->thumb).")'></div><div id='item_name'>".anchor('#', $row->name)."</div>";
+			$str = "<div id='item'><div id='item_img' style='background-image:url(".base_url($row->thumb).")'></div><div id='item_name'>".anchor(site_url('product/view').'/'.$row->id, $row->name)."</div>";
 			$str .= "<div id='item_details'><p><b>Артикул: </b>".$row->article."</p>";	// Артикул
 			$str .=  "<p><b>Описание: </b>".character_limiter($row->description,64)."</p>";		// Описание
 			$str .=  "<p><b>Цена: </b>".$row->price." грн.</p></div></div>";		// Цену
@@ -44,4 +44,3 @@
 		$new_items_list = $this->table->make_columns($items_list, 2);
 		echo $this->table->generate($new_items_list);
 	}
-	?>

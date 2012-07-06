@@ -7,7 +7,7 @@ class Product_model extends CI_Model{
         parent::__construct();
 	}
 	
-	function product_exist($id)  // Ïğîâåğêà ñóùåñòâîâàíèÿ ïğîäóêòà
+	function product_exist($id)  // ĞŸÑ€Ğ¾Ğ²ĞµÑ€ĞºĞ° ÑÑƒÑ‰ĞµÑÑ‚Ğ²Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ°
 	{
 		$query = $this->db->get_where('items', array('id' => $id));
 		if ($query->num_rows() > 0 || $cat_id == 0)
@@ -17,13 +17,13 @@ class Product_model extends CI_Model{
 		else return false;
 	}
 	
-	function get_product_info($id)	// Èíôîğìàöèÿ î òîâàğå
+	function get_product_info($id)	// Ğ˜Ğ½Ñ„Ğ¾Ñ€Ğ¼Ğ°Ñ†Ğ¸Ñ Ğ¾ Ñ‚Ğ¾Ğ²Ğ°Ñ€Ğµ
 	{
 		$query = $this->db->get_where('items', array('id' => $id));
 		return $query->row();
 	}
 	
-	function insert_product($data)	// Äîáàâëåíèå ïğîäóêòà
+	function insert_product($data)	// Ğ”Ğ¾Ğ±Ğ°Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ¿Ñ€Ğ¾Ğ´ÑƒĞºÑ‚Ğ°
 	{
 		$this->db->insert('items', $data);
 	}

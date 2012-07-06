@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<meta  http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -17,7 +17,7 @@
 				<ul>                                                                       
 				<li><a href="index.html">Главная</a></li>
 				<li><a href="about.html">О нас</a></li>
-				<li <?php echo ($this->uri->rsegment(1) == 'catalog')?'class="selected"':'';?>><a href=<?=base_url('index.php/catalog');?>>Продукты</a></li>
+				<li <?php echo ($this->uri->rsegment(1) == 'catalog'||$this->uri->rsegment(1) =='product')?'class="selected"':'';?>><a href=<?=site_url('catalog');?>>Продукты</a></li>
 				<li><a href="specials.html">Контакты</a></li>
 				</ul>
 			</div>			
