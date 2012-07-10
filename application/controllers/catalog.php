@@ -7,9 +7,7 @@ class Catalog extends CI_Controller{
         parent::__construct();
 		$this->load->helper(array('url', 'html', 'form', 'text'));	
 		$this->load->model(array('catalog_model','product_model'));
-		$this->load->library('csvreader');
-		$this->load->library('table');
-		$this->load->library('image_lib');
+		$this->load->library(array('table', 'image_lib'));
 	}
 	
 	function index()
