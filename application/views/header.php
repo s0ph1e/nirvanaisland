@@ -7,12 +7,13 @@
 	<script type="text/javascript" src=<?=base_url('data/js/jqeasy.dropdown.js');?>></script>
 	<script type="text/javascript" >
 	var site_url = '<?=site_url()?>';
+	var base_url = '<?=base_url()?>';
 	</script>
 	<title><?=$title;?></title>
 	<?=link_tag('data/css/style.css');?>
 </head>
 <body><div id="wrap">
-       <div class="header">
+       <div id="header">
 			<div id="basket">
 			<?php
 				echo anchor(site_url(), 'Корзина', 'class="btnbasket"');
@@ -37,7 +38,7 @@
 				</p>
 				<p>
 					<label for="password">Пароль:</label>
-					<?php echo form_input(array('id'=>'password', 'name'=>'password','value'=>$password));?>
+					<?php echo form_input(array('id'=>'password', 'name'=>'password','value'=>$password, 'type'=>'password'));?>
 				</p>
 				<p>
 				  <label for="remember">Запомнить меня:</label>
@@ -45,7 +46,7 @@
 				</p>
 				<p><?php echo form_submit('submit', 'Войти', 'id="submitbtn"');?></p>
 				<?php echo form_close();?>
-			<p><?=anchor(site_url('auth/create_user'),'Регистрация');?></p>
+			<p><?=anchor(site_url('auth/registration'),'Регистрация');?></p>
 			<p id="msg"></p>
 			</div>
 					

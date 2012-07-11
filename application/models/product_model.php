@@ -27,7 +27,6 @@ class Product_model extends CI_Model{
 	{
 		$this->db->insert('items', $data);
 	}
-	
 }
 	
 ?>

@@ -21,22 +21,21 @@ class Auth extends CI_Controller {
 	//log the user in
 	function login()
 	{
-		//validate form input
+		//Правила валидации
 		$this->form_validation->set_rules('identity', 'E-mail', 'required');
 		$this->form_validation->set_rules('password', 'Пароль', 'required');
 
 		if ($this->form_validation->run() == true)
-		{ //check to see if the user is logging in
-			//check for "remember me"
+		{ 
+			//Значение "запомнить меня"
 			$remember = (bool) $this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
-			{ //if the login is successful
-				//redirect them back to the home page
+			{ //Если вход успешен возвращаем ОК
 				exit(json_encode(array('response'=>'OK')));
 			}
 			else
-			{ //if the login was un-successful
+			{ // Если нет - вернуть ошибки
 				exit(json_encode(array('response'=>'ERROR', 'additional'=>$this->ion_auth->errors())));
 			}
 		}
@@ -45,7 +44,7 @@ class Auth extends CI_Controller {
 			exit(json_encode(array('response'=>'ERROR', 'additional'=>validation_errors())));
 		}
 	}
-
+	
 	//log the user out
 	function logout()
 	{
@@ -56,7 +55,7 @@ class Auth extends CI_Controller {
 		if ($_GET['ajax'] == 'true')
 			exit('OK');
 		else
-			redirect(site_url());
+			redirect(getenv("HTTP_REFERER"));
 	}
 
 	//change password
@@ -303,7 +302,7 @@ class Auth extends CI_Controller {
 	}
 
 	//create a new user
-	function create_user()
+	function registration()
 	{
 		$this->data['title'] = "Регистрация";
 
@@ -313,28 +312,27 @@ class Auth extends CI_Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', 'Логин', 'required|xss_clean');
+		$this->form_validation->set_rules('first_name', 'Имя', 'required|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Фамилия', 'required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('password', 'Пароль', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Подтверждение пароля', 'required');
-
+		
 		if ($this->form_validation->run() == true)
 		{
-			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
+			$username = mb_strtolower($this->input->post('first_name')) . ' ' . mb_strtolower($this->input->post('last_name'));
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
 			$additional_data = array('first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
-				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
-			);
+				'last_name' => $this->input->post('last_name'));
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
-			$this->session->set_flashdata('message', "User Created");
-			redirect("auth", 'refresh');
+			$this->load->view('header', array('title'=>"Регистрация прошла успешно"));
+			$this->load->view('message_view', array('text'=>"Вы успешно зарегистрировались. Теперь можете войти на сайт."));
+			$this->load->view('footer');
 		}
 		else
 		{ //display the create user form
@@ -346,35 +344,17 @@ class Auth extends CI_Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('first_name'),
 			);
+			
 			$this->data['last_name'] = array('name' => 'last_name',
 				'id' => 'last_name',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('last_name'),
 			);
+			
 			$this->data['email'] = array('name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
-			);
-			$this->data['company'] = array('name' => 'company',
-				'id' => 'company',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('company'),
-			);
-			$this->data['phone1'] = array('name' => 'phone1',
-				'id' => 'phone1',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone1'),
-			);
-			$this->data['phone2'] = array('name' => 'phone2',
-				'id' => 'phone2',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone2'),
-			);
-			$this->data['phone3'] = array('name' => 'phone3',
-				'id' => 'phone3',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone3'),
 			);
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
@@ -387,7 +367,7 @@ class Auth extends CI_Controller {
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 			$this->load->view('header', array('title'=>"Регистрация"));
-			$this->load->view('create_user', $this->data);
+			$this->load->view('registration_view', $this->data);
 			$this->load->view('footer');
 		}
 	}

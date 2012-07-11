@@ -27,7 +27,7 @@ td, div{
 	background-color:#FFFFFF;
 	text-align:left;
 }
-.header{
+#header{
 	width:900px;
 	height:181px;
 	background:url(../images/header.png) no-repeat center;
@@ -90,7 +90,8 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password]{
+#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password],
+#addCommentContainer input[type=text], #addCommentContainer textarea{
 	display:block;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
@@ -139,13 +140,23 @@ a.btnsigninon, a.btnbasketon{
 #msg p:last-child {
 	margin-bottom:0px;
 }
-#create_user_form{
-	margin:5px;
+#create_user_form,#reg_error{
+	margin:5px 150px 5px 150px;
 	padding: 20px;
+	border:1px dashed #b2b2b2;
+	background: #f9f9f9;
+}
+#addCommentContainer{
+	margin:10px;
+	border:1px dashed #b2b2b2;
+	background: #f9f9f9;
+	padding:10px;
+}
+#addCommentContainer form{
+	margin-left:300px;
 }
 #create_user_form form{
-	margin-left:300px;
-	
+	margin-left:150px;	
 }
 /*-----------------------------menu-------------------*/
 #menu{
@@ -230,17 +241,21 @@ a.btnsigninon, a.btnbasketon{
 }
 #products table{
 	table-layout: fixed;
-	width:880px;
+	width:100%;
 }
 #subcategories td {
 	padding:5px;
 	width:25%;
 	word-wrap: break-word;
 }
+#poducts td{
+	width:50%;
+	word-wrap: break-word;
+}
 /*-----------------------Отображение товаров в категории---------------------*/
 #item{
 	width:100%;
-	padding:10px;
+	padding:10px 0 10px 0;
 	word-wrap: break-word;
 	display: inline-table;
 	background:url(../images/content_background.png) repeat-x;
@@ -249,6 +264,7 @@ a.btnsigninon, a.btnbasketon{
 	float: left;
 	height: 150px;
 	width: 180px;
+	margin:0 10px 0 10px;
 	border-radius: 10px;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
@@ -298,21 +314,31 @@ a.btnsigninon, a.btnbasketon{
 	font-size: 16px;
 	text-align:justify;
 }
-#add_button{
-	color:#ffffff;
-	font-weight:bold;
-	border: 0;
-	width:108px;
-	height:31px;
-	background:url(../images/basket_button.png) no-repeat;
-}
-#error{
-	margin:5px;
-	padding: 20px;
+/*-----------------Coments--------------*/
+.comment{
+	margin:10px;
+	margin:10px;
 	background:#f9f9f9;
-	border: 1px dashed #b2b2b2;
+	border:1px dashed #b2b2b2;
+	padding:10px;
 }
-#error .error {color:red;}
+.comment_username{
+	font-weight:bold;
+	display: inline-block;
+	color:	#999999;
+}
+.comment_date{
+	float:right;
+	display: inline-block;
+	color:	#999999;
+}
+#message{
+	margin:5px;
+	padding:20px;
+	background:#f9f9f9;
+	border:1px dashed #b2b2b2;
+}
+.error {color:red;}
 /*---------------footer------------------------*/
 .footer{
 	padding: 10px;

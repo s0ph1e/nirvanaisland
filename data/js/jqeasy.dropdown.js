@@ -86,7 +86,7 @@ function validate(formData, jqForm, options) {
 	}
 	
 	if (!hasError) {
-		$('#msg').html('<p><img src="data/images/loading.gif" alt="loading" /> подождите...</p>');
+		$('#msg').html('<p><img src="' + base_url + '/data/images/loading.gif" alt="loading" /> подождите...</p>');
 	} else {
 		$('#msg').html(errmsg);
 	return false;

@@ -3,7 +3,7 @@
 	$parents = count($path); // Кол-во родителей категории
 	$counter = 0;					// Счетчик для цикла
 	echo "<p id='path'>";
-	foreach($path as $id => $category) 
+	foreach($path as $cat_id => $category) 
 	{ 	
 		$counter++;
 		if($counter==$parents) //Если последний, то просто текст без стрелочки
@@ -12,18 +12,38 @@
 		}
 		else // Если элемент не последний, то добавляем ссылку на категорию и стрелочки
 		{
-			echo "<b>", anchor('catalog/category/'.$id, $category)." >> </b>"; 
+			echo "<b>", anchor('catalog/category/'.$cat_id, $category)." >> </b>"; 
 		}	
 	}
-	//Выводим название категории
-	echo "<div id='name'>$name</div>";
-	
-	echo "<div id='view_item'><div id='view_item_img' style='background-image:url(".base_url($image).")'></div>";
-	echo "<div id='view_item_info'>";
-	echo "<p><b>Артикул: </b>".$article."</p>";
-	echo "<p><b>Название: </b>".$name."</p>";
-	echo "<p><b>Описание: </b>".$description."</p>";
-	echo "<p><b>Цена: </b>".$price." грн.</p>";
-	echo "<center><input type='submit' name='add_product' id='submitbtn' value='В корзину'/>";
-	echo "</div></div>";
 ?>
+	
+	<div id='name'><?=$name?></div>
+	
+	<div id='view_item'><div id='view_item_img' style='background-image:url(<?=base_url($image)?>)'></div>
+	<div id='view_item_info'>
+	<p><b>Артикул: </b><?=$article?></p>
+	<p><b>Название: </b><?=$name?></p>
+	<p><b>Описание: </b><?=$description?></p>
+	<p><b>Цена: </b><?=$price?> грн.</p>
+	<center><input type='submit' name='add_product' id='submitbtn' value='В корзину'/>
+	</div></div>
+
+
+	<div id="comments">
+		<?php
+			foreach($comments as $row)
+			{
+				echo '<div class="comment"><div class="comment_username">'.$row->name.'</div><div class="comment_date">'.date('j M y G:i:s', strtotime($row->datetime)).'</div>';
+				echo '<p class="comment_message">'.$row->comment.'</p></div>';
+			}
+		?>
+		<div id="addCommentContainer">
+			<?php echo form_open("comment/add_comment/".$id, array('id'=>'addCommentForm'));?>
+				<p>
+					<label for="body">Отзыв:</label>
+					<?php echo form_textarea(array('id'=>'comment', 'name'=>'comment','cols'=>20, 'rows'=>5));?>
+				</p>
+				<p><?php echo form_submit('submit', 'Отправить', 'id="submitbtn"');?></p>
+				<?php echo form_close();?>
+		</div>
+	</div>
