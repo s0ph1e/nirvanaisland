@@ -4,7 +4,7 @@
 		<a href="#">Главная</a>
 		<a href="#">О нас</a>
 		<a href="#">Контакты</a>
-		<p>Flower shop &copy; 2012</p>
+		<p>Flower shop &copy; 2011-<?=date('Y')?></p>
         </div>
 		</div>
 	</body>
