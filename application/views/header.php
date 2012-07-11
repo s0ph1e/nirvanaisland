@@ -4,7 +4,10 @@
 	<meta  http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src=<?=base_url('data/js/jquery.form-2.4.0.min.js');?>></script>
-	<script type="text/javascript" src=<?=base_url('data/js/jqeasy.dropdown.min.js');?>></script>
+	<script type="text/javascript" src=<?=base_url('data/js/jqeasy.dropdown.js');?>></script>
+	<script type="text/javascript" >
+	var site_url = '<?=site_url()?>';
+	</script>
 	<title><?=$title;?></title>
 	<?=link_tag('data/css/style.css');?>
 </head>
@@ -18,7 +21,7 @@
 			<div id="signbtn">
 			<?php if($this->ion_auth->logged_in())
 			{
-				echo anchor(site_url('auth/logout'), 'Выйти', 'class="btnsignout"');
+				echo anchor(site_url('auth/logout'), 'Выйти', 'class="btnsignout" id="btnsignout"');
 			}
 			else 
 			{
@@ -27,14 +30,14 @@
 			?>
 			</div>
 			<div id="frmsignin">
-				<?php echo form_open("auth/login");?>
+				<?php echo form_open("auth/login", array('id'=>'signin'));?>
 				<p>
 					<label for="identity">Email:</label>
-					<?php echo form_input($identity);?>
+					<?php echo form_input(array('id'=>'identity', 'name'=>'identity','value'=>$identity));?>
 				</p>
 				<p>
 					<label for="password">Пароль:</label>
-					<?php echo form_input($password);?>
+					<?php echo form_input(array('id'=>'password', 'name'=>'password','value'=>$password));?>
 				</p>
 				<p>
 				  <label for="remember">Запомнить меня:</label>
@@ -42,8 +45,7 @@
 				</p>
 				<p><?php echo form_submit('submit', 'Войти', 'id="submitbtn"');?></p>
 				<?php echo form_close();?>
-			<p><a href="forgot_password">Забыли пароль?</a></p>
-			
+			<p><?=anchor(site_url('auth/create_user'),'Регистрация');?></p>
 			<p id="msg"></p>
 			</div>
 					

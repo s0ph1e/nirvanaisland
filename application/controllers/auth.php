@@ -9,6 +9,7 @@ class Auth extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->load->helper('url');
+		$this->load->helper('html');
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -32,45 +33,30 @@ class Auth extends CI_Controller {
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{ //if the login is successful
 				//redirect them back to the home page
-				$this->session->set_flashdata('message', 'OK');
-				redirect(site_url());
+				exit(json_encode(array('response'=>'OK')));
 			}
 			else
 			{ //if the login was un-successful
-				//redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				exit(json_encode(array('response'=>'ERROR', 'additional'=>$this->ion_auth->errors())));
 			}
 		}
 		else
-		{  //the user is not logging in so display the login page
-			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$this->data['identity'] = array('name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('identity'),
-			);
-			$this->data['password'] = array('name' => 'password',
-				'id' => 'password',
-				'type' => 'password',
-			);
-
-			$this->load->view('auth/login', $this->data);
+		{ 
+			exit(json_encode(array('response'=>'ERROR', 'additional'=>validation_errors())));
 		}
 	}
 
 	//log the user out
 	function logout()
 	{
-		$this->data['title'] = "Logout";
-
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
 		//redirect them back to the page they came from
-		redirect('auth', 'refresh');
+		if ($_GET['ajax'] == 'true')
+			exit('OK');
+		else
+			redirect(site_url());
 	}
 
 	//change password
@@ -319,23 +305,18 @@ class Auth extends CI_Controller {
 	//create a new user
 	function create_user()
 	{
-		$this->data['title'] = "Create User";
+		$this->data['title'] = "Регистрация";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if ($this->ion_auth->logged_in())
 		{
-			redirect('auth', 'refresh');
+			redirect(getenv("HTTP_REFERER"));
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
-		$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+		$this->form_validation->set_rules('first_name', 'Логин', 'required|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Пароль', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+		$this->form_validation->set_rules('password_confirm', 'Подтверждение пароля', 'required');
 
 		if ($this->form_validation->run() == true)
 		{
@@ -405,7 +386,9 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-			$this->load->view('auth/create_user', $this->data);
+			$this->load->view('header', array('title'=>"Регистрация"));
+			$this->load->view('create_user', $this->data);
+			$this->load->view('footer');
 		}
 	}
 

@@ -90,7 +90,7 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password] {
+#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password]{
 	display:block;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
@@ -127,16 +127,25 @@ a.btnsigninon, a.btnbasketon{
 	padding-top:5px;
 }
 #msg {
-	color:#F00;
+	color:#000000;
 }
 #msg img {
 	margin-bottom:-3px;
 }
 #msg p {
+	color:#000000;
 	margin:5px 0;
 }
 #msg p:last-child {
 	margin-bottom:0px;
+}
+#create_user_form{
+	margin:5px;
+	padding: 20px;
+}
+#create_user_form form{
+	margin-left:300px;
+	
 }
 /*-----------------------------menu-------------------*/
 #menu{
@@ -303,6 +312,7 @@ a.btnsigninon, a.btnbasketon{
 	background:#f9f9f9;
 	border: 1px dashed #b2b2b2;
 }
+#error .error {color:red;}
 /*---------------footer------------------------*/
 .footer{
 	padding: 10px;
