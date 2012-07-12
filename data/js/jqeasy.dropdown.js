@@ -40,7 +40,7 @@ $(document).ready(function() {
 		success: function(data) {
 			data = eval('(' + data + ')');
 			if (data.response==1) {
-				$('#comments').append(data.html);
+				$(data.html).hide().insertBefore('#addCommentContainer').slideDown();
 				$('#textarea_comment').val('');
 			} else {
 				//$('#msg').html(data.additional);

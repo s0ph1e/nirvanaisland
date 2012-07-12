@@ -20,6 +20,14 @@ p{
 td, div{
 	vertical-align: top;
 }
+#path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #view_item, .comment,
+a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],
+#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn{
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	behavior: url(border-radius.htc);
+}
 #wrap{
 	width:900px;
 	height:auto;
@@ -51,10 +59,6 @@ a.btnsignin, a.btnsignout, a.btnbasket {
 	color:#fff;
 	text-decoration:none;
 	font-weight:bold;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	border-radius:4px;
-	behavior: url(border-radius.htc); /* учим IE border-radius */
 	height:26px;
 }
 a.btnbasket{
@@ -92,10 +96,6 @@ a.btnsigninon, a.btnbasketon{
 }
 #frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password]{
 	display:block;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	behavior: url(border-radius.htc);
 	border:1px solid #666;
 	margin:0 0 5px;
 	padding:5px;
@@ -108,10 +108,6 @@ a.btnsigninon, a.btnbasketon{
 	font-weight:normal;
 }
 #submitbtn , #commentbtn{
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	behavior: url(border-radius.htc);
 	background-color:#333;
 	border:1px solid #fff;
 	color:#fff;
@@ -153,10 +149,6 @@ a.btnsigninon, a.btnbasketon{
 }
 #textarea_comment{
 	width:825px;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	behavior: url(border-radius.htc);
 	border:1px solid #666;
 	margin:0 0 5px;
 	padding:5px;
@@ -262,35 +254,31 @@ a.btnsigninon, a.btnbasketon{
 	word-wrap: break-word;
 }
 /*-----------------------Отображение товаров в категории---------------------*/
-#item{
+.item{
 	width:100%;
 	padding:10px 0 10px 0;
 	word-wrap: break-word;
 	display: inline-table;
 	background:url(../images/content_background.png) repeat-x;
 }
-#item_img{
+.item_img{
 	float: left;
 	height: 150px;
 	width: 180px;
 	margin:0 10px 0 10px;
-	border-radius: 10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	behavior: url(border-radius.htc);
 	border: 1px dashed #b2b2b2;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-color: #ffffff;
 }
-#item_name{
+.item_name{
 	margin-left: 195px;
 }
-#item_name a{
+.item_name a{
 	font-size: 18px;
 	font-weight:bold;
 }
-#item_details{
+.item_details{
 	margin-left: 195px;
 }
 /*---------------------------Просмотр товара-------------------*/
