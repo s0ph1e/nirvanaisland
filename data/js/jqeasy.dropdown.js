@@ -36,15 +36,13 @@ $(document).ready(function() {
 	
 	
 	$('#addCommentForm').ajaxForm({
-		//beforeSubmit: validate,
 		success: function(data) {
-			data = eval('(' + data + ')');
-			if (data.response==1) {
-				$(data.html).hide().insertBefore('#addCommentContainer').slideDown();
-				$('#textarea_comment').val('');
+			data = eval('(' + data + ')');	// Преобразование JSON
+			if (data.response==1) {			// Если нет ошибок
+				$(data.html).hide().insertBefore('#addCommentContainer').slideDown(); // Плавное появление комментария
+				$('#textarea_comment').val('');		// Очистка textarea
 			} else {
-				//$('#msg').html(data.additional);
-				//$('#identity').focus();
+				$(data.html).hide().insertAfter('#textarea_comment').fadeIn().delay(2000).fadeOut(400);; // Ошибка под textarea
 			}
 		}
 	});

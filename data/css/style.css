@@ -22,7 +22,7 @@ td, div{
 }
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #view_item, .comment,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],
-#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn{
+#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -107,7 +107,7 @@ a.btnsigninon, a.btnbasketon{
 #frmsignin label {
 	font-weight:normal;
 }
-#submitbtn , #commentbtn{
+#submitbtn , #commentbtn, #regbtn, #basketbtn{
 	background-color:#333;
 	border:1px solid #fff;
 	color:#fff;
@@ -115,7 +115,8 @@ a.btnsigninon, a.btnbasketon{
 	margin:0 5px 0 0;
 	font-weight:bold;
 }
-#submitbtn:hover, #submitbtn:focus {
+#submitbtn:hover, #submitbtn:focus, #commentbtn:hover, #commentbtn:focus,
+#regbtn:hover, #regbtn:focus, #basketbtn:hover, #basketbtn:focus{
 	border:1px solid #000;
 	cursor:pointer;
 }
