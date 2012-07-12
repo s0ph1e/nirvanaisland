@@ -5,7 +5,6 @@ class Product extends CI_Controller{
 	public function __construct() 
     { 
         parent::__construct();
-		$this->load->helper(array('url', 'html', 'form', 'text'));	
 		$this->load->model(array('product_model', 'catalog_model', 'comment_model'));
 	}
 	

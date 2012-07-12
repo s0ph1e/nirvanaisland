@@ -25,7 +25,7 @@
       <?php echo form_input($password_confirm);?>
       </p>
       
-      <p><?php echo form_submit('submit', 'Зарегистрироваться','id="submitbtn"');?></p>
+      <p><?php echo form_submit('submit', 'Зарегистрироваться','id="regbtn"');?></p>
  
     <?php echo form_close();?>
 	</div>

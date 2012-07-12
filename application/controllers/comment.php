@@ -5,10 +5,8 @@ class Comment extends CI_Controller{
 	public function __construct() 
     { 
         parent::__construct();
-		$this->load->helper(array('url', 'html', 'form', 'text'));	
 		$this->load->model(array('comment_model'));
 		$this->load->library('form_validation');
-		$this->load->library('ion_auth');
 	}
 	
 	function add_comment($id)
@@ -32,12 +30,11 @@ class Comment extends CI_Controller{
 		  $html = '<div class="comment"><div class="comment_top">'.$comment->name.'</div><div class="comment_date">'.date('j M y G:i:s', strtotime($comment->datetime)).'</div>';
 		  $html.= '<p class="comment_message">'.$comment->comment.'</p></div>';
 		  exit(json_encode(array('response'=>1, 'html'=>$html)));
-		  //redirect(getenv("HTTP_REFERER"));
 		}
 		else
 		{ 
-			//exit(json_encode(array('response'=>'ERROR', 'additional'=>validation_errors())));
-			redirect(getenv("HTTP_REFERER").'?error=1');
+			$error = '<p class="error">'.validation_errors().'</p>';
+			exit(json_encode(array('response'=>0, 'html'=>$error)));
 		}
 	}
 	
