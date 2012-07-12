@@ -8,6 +8,7 @@
 	<script type="text/javascript" >
 	var site_url = '<?=site_url()?>';
 	var base_url = '<?=base_url()?>';
+	<?php if(isset($id)){echo 'var page_id='.$id;}?>
 	</script>
 	<title><?=$title;?></title>
 	<?=link_tag('data/css/style.css');?>
