@@ -34,15 +34,20 @@ $(document).ready(function() {
 		};
 	});
 	
-	//<!--
-	//$('#btnsignout').click(function(e){
-	//	//e.preventDefault();
-	//	$.ajax({
-	//		url: site_url + '/auth/logout?ajax=true' 
-	//	}).done(function(resp){
-	//			alert('Вышли ;)');
-	//	});
-	//});
+	
+	$('#addCommentForm').ajaxForm({
+		//beforeSubmit: validate,
+		success: function(data) {
+			data = eval('(' + data + ')');
+			if (data.response==1) {
+				$('#comments').append(data.html);
+				$('#textarea_comment').val('');
+			} else {
+				//$('#msg').html(data.additional);
+				//$('#identity').focus();
+			}
+		}
+	});
 	
 	$('#signin').ajaxForm({
 		beforeSubmit: validate,

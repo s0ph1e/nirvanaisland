@@ -26,10 +26,13 @@ class Comment extends CI_Controller{
 		  }
 		  $data['comment'] = $this->input->post('comment'); 
 		  $data['content_id'] = $id;
-		  $this->comment_model->insert_comment($data);
+		  $comment_id = $this->comment_model->insert_comment($data);
+		  $comment = $this->comment_model->get_comment($comment_id);
 		  
-		  //exit(json_encode(array('response'=>'ОК')));
-		  redirect(getenv("HTTP_REFERER"));
+		  $html = '<div class="comment"><div class="comment_top">'.$comment->name.'</div><div class="comment_date">'.date('j M y G:i:s', strtotime($comment->datetime)).'</div>';
+		  $html.= '<p class="comment_message">'.$comment->comment.'</p></div>';
+		  exit(json_encode(array('response'=>1, 'html'=>$html)));
+		  //redirect(getenv("HTTP_REFERER"));
 		}
 		else
 		{ 

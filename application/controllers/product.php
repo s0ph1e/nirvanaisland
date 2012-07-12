@@ -25,7 +25,7 @@ class Product extends CI_Controller{
 			$data['comments_count'] = count($data['comments']);
 			
 			// Вызываем представление товара
-			$this->load->view('header', array('title'=>$data['name']));
+			$this->load->view('header', array('title'=>$data['name'],'id'=>$id));
 			$this->load->view('product_view', $data);
 			$this->load->view('footer');
 		}

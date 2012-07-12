@@ -33,17 +33,18 @@
 		<?php
 			foreach($comments as $row)
 			{
-				echo '<div class="comment"><div class="comment_username">'.$row->name.'</div><div class="comment_date">'.date('j M y G:i:s', strtotime($row->datetime)).'</div>';
+				echo '<div class="comment"><div class="comment_top">'.$row->name.'</div><div class="comment_date">'.date('j M y G:i:s', strtotime($row->datetime)).'</div>';
 				echo '<p class="comment_message">'.$row->comment.'</p></div>';
 			}
 		?>
+	</div>
 		<div id="addCommentContainer">
+		<div class="comment_top">Ваш отзыв:</div>
 			<?php echo form_open("comment/add_comment/".$id, array('id'=>'addCommentForm'));?>
 				<p>
-					<label for="body">Отзыв:</label>
-					<?php echo form_textarea(array('id'=>'comment', 'name'=>'comment','cols'=>20, 'rows'=>5));?>
+					<?php echo form_textarea(array('id'=>'textarea_comment', 'name'=>'comment', 'rows'=>2));?>
 				</p>
-				<p><?php echo form_submit('submit', 'Отправить', 'id="submitbtn"');?></p>
+				<p><?php echo form_submit('submit', 'Отправить', 'id="commentbtn"');?></p>
 				<?php echo form_close();?>
 		</div>
-	</div>
+	

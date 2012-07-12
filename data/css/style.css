@@ -90,8 +90,7 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password],
-#addCommentContainer input[type=text], #addCommentContainer textarea{
+#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password]{
 	display:block;
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
@@ -108,7 +107,7 @@ a.btnsigninon, a.btnbasketon{
 #frmsignin label {
 	font-weight:normal;
 }
-#submitbtn {
+#submitbtn , #commentbtn{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -152,9 +151,19 @@ a.btnsigninon, a.btnbasketon{
 	background: #f9f9f9;
 	padding:10px;
 }
-#addCommentContainer form{
-	margin-left:300px;
+#textarea_comment{
+	width:825px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	behavior: url(border-radius.htc);
+	border:1px solid #666;
+	margin:0 0 5px;
+	padding:5px;
+	font-family:arial, verdana, sans-serif;
+	font-size:14px;
 }
+#addCommentContainer p {display:inline-block;}
 #create_user_form form{
 	margin-left:150px;	
 }
@@ -322,7 +331,8 @@ a.btnsigninon, a.btnbasketon{
 	border:1px dashed #b2b2b2;
 	padding:10px;
 }
-.comment_username{
+.comment_top{
+	float:left;
 	font-weight:bold;
 	display: inline-block;
 	color:	#999999;
@@ -331,6 +341,10 @@ a.btnsigninon, a.btnbasketon{
 	float:right;
 	display: inline-block;
 	color:	#999999;
+}
+.comment_message{
+	display:block;
+	margin-top: 20px;
 }
 #message{
 	margin:5px;
