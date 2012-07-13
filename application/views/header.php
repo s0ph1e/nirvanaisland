@@ -3,12 +3,14 @@
 <head>
 	<meta  http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src=<?=base_url('data/js/jquery.form-2.4.0.min.js');?>></script>
 	<script type="text/javascript" src=<?=base_url('data/js/jqeasy.dropdown.js');?>></script>
+	<script type="text/javascript" src=<?=base_url('data/js/jquery.form-2.4.0.min.js');?>></script>
+	<script type="text/javascript" src=<?=base_url('data/js/jquery.blockUI.js');?>></script>
+	<script type="text/javascript" src=<?=base_url('data/js/blockUI.use.js');?>></script>
 	<script type="text/javascript" >
 	var site_url = '<?=site_url()?>';
 	var base_url = '<?=base_url()?>';
-	<?php if(isset($id)){echo 'var page_id='.$id;}?>
+	<?php if(isset($id)){echo 'var page_id='.$id.';';}?>
 	</script>
 	<title><?=$title;?></title>
 	<?=link_tag('data/css/style.css');?>
@@ -17,7 +19,7 @@
        <div id="header">
 			<div id="basket">
 			<?php
-				echo anchor(site_url(), 'Корзина', 'class="btnbasket"');
+				echo anchor(site_url('/shopcart/view'), 'Корзина', 'class="btnbasket"');
 			?>
 			</div>
 			<div id="signbtn">
