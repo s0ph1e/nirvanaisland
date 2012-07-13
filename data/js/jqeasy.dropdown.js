@@ -61,6 +61,22 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
+	$('.cart_ok').click(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: site_url + "/shopcart/update/" + this.id + '/' + $('#'+this.id).val()
+		}).done(function(data) { 
+			data = eval('(' + data + ')');
+			$('#total_' + data.id).html(data.total_price);
+			//alert('dddd');
+		  //$(this).addClass("done");
+		});
+		
+		return false;
+	});
+	
+		
 });
 
 function validate(formData, jqForm, options) { 

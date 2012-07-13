@@ -20,9 +20,12 @@ p{
 td, div{
 	vertical-align: top;
 }
+img{
+	border:0;
+}
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #view_item, .comment,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],
-#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn{
+#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -335,13 +338,33 @@ a.btnsigninon, a.btnbasketon{
 	display:block;
 	margin-top: 20px;
 }
-#message{
-	margin:5px;
-	padding:20px;
-	background:#f9f9f9;
-	border:1px dashed #b2b2b2;
+/*-----------------------cart---------------------*/
+.cart_table{
+	width:100%;
+	border:1px solid #dddddd;
+	margin:10px 0;
 }
-.error {color:red;}
+.cart_table td,.cart_table th{
+	padding:10px;
+	text-align:center;
+	vertical-align:middle;
+}
+.cart_table td a{
+	font-weight:bold;
+}
+.cart_table_heading, .cart_grey_row{
+	background-color:#dddddd;
+}
+.cart_white_row{
+	background-color:#f9f9f9;
+}
+.qty_text{
+	border:1px solid #666;
+	margin:0 0 5px;
+	padding:5px;
+	width:40px;
+	text-align:center;
+}
 /*---------------footer------------------------*/
 .footer{
 	padding: 10px;
@@ -358,3 +381,11 @@ a.btnsigninon, a.btnbasketon{
 .footer a:hover{
 	text-decoration:underline;
 }
+/*----------------------other---------------*/
+#message{
+	margin:5px;
+	padding:20px;
+	background:#f9f9f9;
+	border:1px dashed #b2b2b2;
+}
+.error {color:red;}

@@ -47,7 +47,7 @@
 				  <label for="remember">Запомнить меня:</label>
 				  <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
 				</p>
-				<p><?php echo form_submit('submit', 'Войти', 'id="submitbtn"', 'class="button"');?></p>
+				<p><?php echo form_submit('submit', 'Войти', 'id="submitbtn"');?></p>
 				<?php echo form_close();?>
 			<p><?=anchor(site_url('auth/registration'),'Регистрация');?></p>
 			<p id="msg"></p>
