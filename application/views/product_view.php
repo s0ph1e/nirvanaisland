@@ -25,9 +25,7 @@
 	<p><b>Название: </b><?=$name?></p>
 	<p><b>Описание: </b><?=$description?></p>
 	<p><b>Цена: </b><?=$price?> грн.</p>
-	<?php echo form_open("shopcart/add_to_cart/".$id);?>
-	<center><?php echo form_submit('submit', 'В корзину', 'id="basketbtn"');?>
-	<?php echo form_close();?>
+	<input type="button" id="basketbtn" value="В корзину">
 	</div></div>
 
 	<?php // Вывод комментариев
