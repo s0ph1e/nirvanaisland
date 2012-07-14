@@ -128,8 +128,8 @@ class Catalog extends CI_Controller{
 		$this->load->library('form_validation');
 		
 		// Установка правил валидации для полей
-		$this->form_validation->set_rules('article', 'Артикул', 'required|min_length[5]|max_length[8]');
-		$this->form_validation->set_rules('name', 'Имя', 'required|min_length[5]|max_length[32]');
+		$this->form_validation->set_rules('article', 'Артикул', 'required|min_length[2]|max_length[8]');
+		$this->form_validation->set_rules('name', 'Имя', 'required|min_length[2]|max_length[32]');
 		$this->form_validation->set_rules('description', 'Описание', 'required');
 		$this->form_validation->set_rules('price', 'Цена', 'required|decimal|greater_than[0]');
 		

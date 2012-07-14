@@ -76,6 +76,16 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$('.cart_del').click(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: site_url + "/shopcart/delete/" + this.id
+		}).done(function() { 
+			alert('dddd');
+		});
+		
+		return false;
+	});
 		
 });
 

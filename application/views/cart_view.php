@@ -1,7 +1,11 @@
 <div id='name'>Корзина</div>
 <div id="cart_content">
-<?php
+<?php 
+if($cart)
+{
+	
 	// Вывод таблицы товаров в корзине
+	//echo '<p id="cart_message">В корзине '.$qty.' товаров на сумму '.$total.' грн.</p>'; 
 	
 	// Установка шаблона для корзины
 	$tmpl = array (
@@ -14,8 +18,11 @@
               );
 	$this->table->set_template($tmpl);		// Применение шаблона
 	$this->table->set_heading('Наименование', 'Количество', 'Цена за единицу', 'Общая стоимость','Действия');		// Формирование заголовка
-	echo $this->table->generate($cart);			// Вывод таблицы	
-	echo '<center>'.form_submit('submit', 'Отправить заказ', 'id="basketbtn"');
+	echo $this->table->generate($cart);			// Вывод таблицы
+	echo form_open('shopcart/order');
+	echo '<center>'.form_submit('submit', 'Отправить заказ', 'id="ordbtn"');
+	echo form_close();
+}
+else echo '<div id="message"><p>Корзина пуста</p><p>'.anchor(getenv("HTTP_REFERER"), 'Вернуться назад').'</p></div>';
 ?>
-
 </div>
