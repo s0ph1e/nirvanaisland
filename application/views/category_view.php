@@ -27,6 +27,7 @@
 		}
 		$new_subcat_list = $this->table->make_columns($subcat_list, 4);
 		echo "<div id = 'subcategories'>".$this->table->generate($new_subcat_list)."</div>";	
+		$this->table->clear();
 	}
 
 	// Выводим товары
