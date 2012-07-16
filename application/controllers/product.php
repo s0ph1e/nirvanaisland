@@ -20,6 +20,7 @@ class Product extends CI_Controller{
 			$data['path'] = $this->catalog_model->get_category_path($data['parent_id']);
 			$data['path'][] = $data['name'];
 			
+			// Получение комментариев
 			$data['comments'] = $this->comment_model->get_comments($id);
 			$data['comments_count'] = count($data['comments']);
 			

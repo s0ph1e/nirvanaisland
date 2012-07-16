@@ -40,13 +40,13 @@ class Cart_model extends CI_Model{
 	{
 		$this->db->insert('buyings', $data); 	// Данные заказа - ID юзера, адрес, телефон
 		
-		$order_id = $this->db->insert_id();		// ID вставленной записи
+		$buying_id = $this->db->insert_id();		// ID вставленной записи
 		
 		$cart = $this->session->userdata('cart');	// Получение корзины из сессии
 		
 		foreach($cart as $key => $value)			// Добавление всех товаров в заказ
 		{
-			$this->db->insert('buying_items', array('order_id'=>$order_id, 'product_id'=>$key, 'qty'=>$value));
+			$this->db->insert('buying_items', array('buying_id'=>$order_id, 'product_id'=>$key, 'qty'=>$value));
 		}
 	}
 	
@@ -60,7 +60,7 @@ class Cart_model extends CI_Model{
 	
 	function get_buying_items($buying_id)
 	{
-		$query = $this->db->get_where('buying_items', array('order_id'=>$buying_id));
+		$query = $this->db->get_where('buying_items', array('buying_id'=>$buying_id));
 		
 		return $query->result();
 	}

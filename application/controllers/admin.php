@@ -6,18 +6,22 @@ class Admin extends CI_Controller{
     { 
         parent::__construct();
 		$this->load->model(array('cart_model', 'product_model'));
+		
+		if(!$this->ion_auth->is_admin()) redirect(getenv("HTTP_REFERER"));
 	}
 	
 	function index()
 	{
-		$this->view_buyings('all');
+		$this->view_buyings();
 	}
 	
-	function view_buyings($view_type)		// Просмотр заказов
+	function view_buyings()		// Просмотр заказов
 	{
-		if(!isset($view_type))
+		$view_type = $this->session->userdata('admin_view_type');
+		
+		if($view_type == FALSE)
 		{
-			redirect(getenv("HTTP_REFERER"));
+			$this->session->set_userdata('admin_view_type', 'all');	
 		}
 		else
 		{
@@ -29,7 +33,7 @@ class Admin extends CI_Controller{
 							break;
 				case 'all': $buyings = $this->cart_model->get_buyings(3);
 							break;
-				default: $data['message'] = 'Неверный запрос';
+				default: $data['message'] = 'Неверный запрос'; break;
 			}
 			
 			foreach($buyings as $row)		// Для каждого заказа получаем информацию
@@ -63,6 +67,8 @@ class Admin extends CI_Controller{
 				// Массив для передачи в представление
 				$data['buyings'][] = $info;
 			}
+			$data['types'] = array('new'=>'Только новые', 'new_in_process'=>'Новые и в процессе', 'all'=>'Все заказы');
+			$data['cur_type'] = $view_type;
 			
 			$this->load->view('header', array('title'=>'Заказы'));
 			$this->load->view('admin_buyings_view', $data);
@@ -79,6 +85,20 @@ class Admin extends CI_Controller{
 		else
 		{
 			$this->cart_model->update_buying($id);
+			$this->view_buyings();
+		}
+	}
+	
+	function change_view_type($type)
+	{
+		if(!isset($type)&&!($type == 'new' || $type == 'new_in_process' || $type == 'all'))
+		{
+			redirect(getenv("HTTP_REFERER"));
+		}
+		else
+		{
+			$this->session->unset_userdata('admin_view_type');			
+			$this->session->set_userdata('admin_view_type', $type);	
 			$this->view_buyings();
 		}
 	}
