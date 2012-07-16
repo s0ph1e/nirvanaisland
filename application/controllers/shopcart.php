@@ -40,7 +40,7 @@ class ShopCart extends CI_Controller{
 									'qty'=>'<input type="text" maxlength="3" class="qty_text" id='.$key.' value ='.$value.' onkeyup="this.value = this.value.replace (/\D/, \'\')">',
 									'price'=>$product->price.' грн.',
 									'total_price'=>'<span id="total_'.$key.'">'.$value*$product->price.' грн.</span>',
-									'actions'=>'<center>'.anchor('shopcart/update/'.$key, img('data/images/ok.png'), array('id'=>$key, 'class'=>"cart_ok", 'title'=>"Изменить")).'&nbsp'.anchor('shopcart/delete/'.$key, img('data/images/delete.png'), 'title="Удалить"')
+									'actions'=>'<center>'.anchor(site_url('shopcart/update/'.$key), img('data/images/ok.png'), array('id'=>$key, 'class'=>"cart_ok", 'title'=>"Изменить")).'&nbsp'.anchor(site_url('shopcart/delete/'.$key), img('data/images/delete.png'), 'title="Удалить"')
 								);
 		}
 		$data['qty'] = $this->cart_model->get_total_count();

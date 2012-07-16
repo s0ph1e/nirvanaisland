@@ -344,7 +344,7 @@ a.btnsigninon, a.btnbasketon{
 	margin-top: 20px;
 }
 /*-----------------------cart---------------------*/
-.cart_table{
+.cart_table, .admin_table{
 	width:100%;
 	border:1px solid #dddddd;
 	margin:10px 0;
@@ -390,6 +390,17 @@ a.btnsigninon, a.btnbasketon{
 }
 .footer a:hover{
 	text-decoration:underline;
+}
+/*---------------admin----------------*/
+.admin_table td{
+	text-align:justify;
+}
+.admin_table th{
+	text-align:center;
+}
+.admin_table td, .admin_table th{
+	padding:10px;
+	vertical-align:middle;
 }
 /*----------------------other---------------*/
 #message{
