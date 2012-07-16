@@ -23,9 +23,9 @@ td, div{
 img{
 	border:0;
 }
-#path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #view_item, .comment, #message, #error, #ordbtn ,
-a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#create_user_form,#reg_error,
-#create_user_form input[type=text],#create_user_form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text{
+#path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
+a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
+#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -97,7 +97,7 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #create_user_form input[type=text],#create_user_form input[type=password]{
+#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres{
 	display:block;
 	border:1px solid #666;
 	margin:0 0 5px;
@@ -139,7 +139,7 @@ a.btnsigninon, a.btnbasketon{
 #msg p:last-child {
 	margin-bottom:0px;
 }
-#create_user_form,#reg_error{
+#form,#form_error{
 	margin:5px 150px 5px 150px;
 	padding: 20px;
 	border:1px dashed #b2b2b2;
@@ -151,16 +151,18 @@ a.btnsigninon, a.btnbasketon{
 	background: #f9f9f9;
 	padding:10px;
 }
-#textarea_comment{
-	width:825px;
+#textarea_comment, #textarea_addres{
 	border:1px solid #666;
 	margin:0 0 5px;
 	padding:5px;
 	font-family:arial, verdana, sans-serif;
 	font-size:14px;
 }
+#textarea_comment{
+	width:825px;
+}
 #addCommentContainer p {display:inline-block;}
-#create_user_form form{
+#form form{
 	margin-left:150px;	
 }
 /*-----------------------------menu-------------------*/
