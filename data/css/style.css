@@ -28,7 +28,7 @@ textarea{
 }
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
-#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text{
+#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -401,6 +401,27 @@ a.btnsigninon, a.btnbasketon{
 .admin_table td, .admin_table th{
 	padding:10px;
 	vertical-align:middle;
+}
+#view_types{
+	background:url(../images/filter.png) top left no-repeat;
+	padding: 5px 0 5px 37px;
+}
+#view_types a{
+	font-size: 16px;
+	font-weight:bold;
+	color: grey;
+	padding: 0 5px;
+}
+#cur_type{
+	background:#999999;
+	font-size: 16px;
+	font-weight:bold;
+	color: #ffffff;
+	padding: 5px;
+	cursor: pointer;
+}
+#cur_type:hover{
+	background:#666666;
 }
 /*----------------------other---------------*/
 #message{
