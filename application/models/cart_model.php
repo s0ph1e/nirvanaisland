@@ -65,5 +65,48 @@ class Cart_model extends CI_Model{
 		return $query->result();
 	}
 	
+	function get_status_name($id)
+	{
+		$query = $this->db->get_where('buying_statuses', array('id'=>$id));
+		
+		return $query->row()->status;
+	}
+	
+	function get_status_id($name)
+	{
+		$query = $this->db->get_where('buying_statuses', array('name'=>$name));
+		
+		return $query->row()->id;
+	}
+	
+	function update_buying($id)
+	{
+		// Получаем статус заказ
+		$status_id = (int)$this->db->get_where('buyings', array('id'=>$id))->row()->status_id;
+		
+		// Выбираем из таблицы следующий статус
+		$this->db->where('id >', $status_id);
+		$next_status = $this->db->get('buying_statuses', 1,0)->row()->id;
+		
+		// Обновляем запись в таблице заказов
+		if($next_status)
+		{
+			$this->db->where('id', $id);
+			$this->db->update('buyings', array('status_id'=>$next_status));
+			return true;
+		}
+		else return false;
+	}
+	
+	function buying_exist($id)
+	{
+		$query = $this->db->get_where('buyings', array('id' => $id));
+		if ($query->num_rows() > 0)
+		{
+			return true;
+		}
+		else return false;
+	}
+	
 }
 ?>
