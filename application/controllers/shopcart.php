@@ -40,7 +40,7 @@ class ShopCart extends CI_Controller{
 									'qty'=>'<input type="text" maxlength="3" class="qty_text" id='.$key.' value ='.$value.' onkeyup="this.value = this.value.replace (/\D/, \'\')">',
 									'price'=>$product->price.' грн.',
 									'total_price'=>'<span id="total_'.$key.'">'.$value*$product->price.' грн.</span>',
-									'actions'=>'<center>'.anchor(site_url('shopcart/update/'.$key), img('data/images/ok.png'), array('id'=>$key, 'class'=>"cart_ok", 'title'=>"Изменить")).'&nbsp'.anchor(site_url('shopcart/delete/'.$key), img('data/images/delete.png'), 'title="Удалить"')
+									'actions'=>'<center>'.anchor(site_url('shopcart/update/'.$key), img('data/images/ok.png'), array('id'=>$key, 'class'=>"cart_ok", 'title'=>"Изменить")).'&nbsp'.anchor(site_url('shopcart/delete/'.$key), img('data/images/delete.png'), array('id'=>$key, 'class'=>"cart_del", 'title'=>"Удалить"))
 								);
 		}
 		$data['qty'] = $this->cart_model->get_total_count();
@@ -73,7 +73,11 @@ class ShopCart extends CI_Controller{
 		unset($cart[$id]);								// Удаление выбранного товара
 		$this->session->unset_userdata('cart');			// Удаление корзины из сессии
 		$this->session->set_userdata('cart', $cart);	// Запись обновленной корзины в сессию
-		redirect(site_url('shopcart'));
+		
+		$all_qty = $this->cart_model->get_total_count();
+		$all_price = $this->cart_model->get_total_price();
+		
+		exit(json_encode(array('id'=>$id, 'all_qty' =>$all_qty, 'all_price'=>$all_price)));
 	}
 
 	function order()

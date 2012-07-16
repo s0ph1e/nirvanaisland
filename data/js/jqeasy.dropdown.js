@@ -75,7 +75,7 @@ $(document).ready(function() {
 			{
 				$('#total_' + data.id).html(data.total_price);
 			}
-			$('#cart_message').html("В корзине " + data.all_qty + " товаров на сумму " + data.all_price + " грн.")
+			$('#cart_message').html("В корзине " + data.all_qty + " товаров на сумму " + data.all_price + " грн.");
 		});
 		
 		return false;
@@ -85,8 +85,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		$.ajax({
 			url: site_url + "/shopcart/delete/" + this.id
-		}).done(function() { 
-			alert('dddd');
+		}).done(function(data) { 
+			data = eval('(' + data + ')');
+			$('#total_' + data.id).parent().parent().hide();
+			$('#cart_message').html("В корзине " + data.all_qty + " товаров на сумму " + data.all_price + " грн.");
 		});
 		
 		return false;
