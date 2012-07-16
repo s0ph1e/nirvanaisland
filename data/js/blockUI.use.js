@@ -14,19 +14,4 @@
                 } 
             }); 
         }); 
-		
-		$('#ordbtn').click(function() { 
-            // update the block message 
-            $.blockUI({ timeout:   4000,
-						message: "<h2>Отправляю заказ...</h2>" }); 
- 
-            $.ajax({ 
-                url: site_url + '/shopcart/order', 
-                cache: false, 
-                complete: function() { 
-                    // unblock when remote call returns 
-                    $.unblockUI(); 
-                } 
-            }); 
-        });
     }); 

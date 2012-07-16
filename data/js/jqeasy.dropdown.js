@@ -35,15 +35,14 @@ $(document).ready(function() {
 	});
 	
 	
+	
 	$('#addCommentForm').ajaxForm({
 		success: function(data) {
 			data = eval('(' + data + ')');	// Преобразование JSON
 			if (data.response==1) {			// Если нет ошибок
 				$(data.html).hide().insertBefore('#addCommentContainer').slideDown(); // Плавное появление комментария
 				$('#textarea_comment').val('');		// Очистка textarea
-			} else {
-				$(data.html).hide().insertAfter('#textarea_comment').fadeIn().delay(2000).fadeOut(400);; // Ошибка под textarea
-			}
+			} 
 		}
 	});
 	
@@ -68,9 +67,15 @@ $(document).ready(function() {
 			url: site_url + "/shopcart/update/" + this.id + '/' + $('#'+this.id).val()
 		}).done(function(data) { 
 			data = eval('(' + data + ')');
-			$('#total_' + data.id).html(data.total_price);
-			//alert('dddd');
-		  //$(this).addClass("done");
+			if(data.total_price == "0 грн.")
+			{
+				$('#total_' + data.id).parent().parent().hide();
+			}
+			else 
+			{
+				$('#total_' + data.id).html(data.total_price);
+			}
+			$('#cart_message').html("В корзине " + data.all_qty + " товаров на сумму " + data.all_price + " грн.")
 		});
 		
 		return false;

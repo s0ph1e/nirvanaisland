@@ -2,8 +2,8 @@
 	<div id="name">Регистрация</div>
 	
 	<?php if($message)
-	echo "<div id='reg_error'>$message</div>";?>
-	<div id="create_user_form">
+	echo "<div id='form_error'>$message</div>";?>
+	<div id="form">
     <?php echo form_open("auth/registration");?>
       <p>Имя:<br />
       <?php echo form_input($first_name);?>
