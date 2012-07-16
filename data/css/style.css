@@ -23,6 +23,9 @@ td, div{
 img{
 	border:0;
 }
+textarea{
+	overflow:auto;
+}
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
 #form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text{

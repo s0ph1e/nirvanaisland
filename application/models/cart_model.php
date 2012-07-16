@@ -36,9 +36,9 @@ class Cart_model extends CI_Model{
 		return $total_price;
 	}
 	
-	function create_order($data)
+	function create_buying($data)
 	{
-		$this->db->insert('orders', $data); 	// Данные заказа - ID юзера, адрес, телефон
+		$this->db->insert('buyings', $data); 	// Данные заказа - ID юзера, адрес, телефон
 		
 		$order_id = $this->db->insert_id();		// ID вставленной записи
 		
@@ -46,8 +46,24 @@ class Cart_model extends CI_Model{
 		
 		foreach($cart as $key => $value)			// Добавление всех товаров в заказ
 		{
-			$this->db->insert('ordered_items', array('order_id'=>$order_id, 'product_id'=>$key, 'qty'=>$value));
+			$this->db->insert('buying_items', array('order_id'=>$order_id, 'product_id'=>$key, 'qty'=>$value));
 		}
 	}
+	
+	function get_buyings($status_code)
+	{
+		$this->db->where('status_id <=',$status_code);
+		$query = $this->db->get('buyings');
+		
+		return $query->result();
+	}
+	
+	function get_buying_items($buying_id)
+	{
+		$query = $this->db->get_where('buying_items', array('order_id'=>$buying_id));
+		
+		return $query->result();
+	}
+	
 }
 ?>

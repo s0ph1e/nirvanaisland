@@ -18,6 +18,7 @@ if($cart)
 	$this->table->set_template($tmpl);		// Применение шаблона
 	$this->table->set_heading('Наименование', 'Количество', 'Цена за единицу', 'Общая стоимость','Действия');		// Формирование заголовка
 	echo $this->table->generate($cart);			// Генерирование таблицы
+	$this->table->clear();
 	echo form_open('shopcart/order');
 	echo '<center>'.form_submit('cart_submit', 'Отправить заказ', 'id="ordbtn"');
 	echo form_close();

@@ -92,7 +92,7 @@ class ShopCart extends CI_Controller{
 			$orders['phone'] = mb_strtolower($this->input->post('phone'));	
 			
 			// Создаем записи в таблице заказов (пользователь, адрес, тел) и в таблице заказанных товаров (id заказа, товар, колво)
-			$this->cart_model->create_order($orders);
+			$this->cart_model->create_buying($orders);
 			$this->session->unset_userdata('cart');			// Удаление корзины из сессии
 			
 			$this->load->view('header', array('title'=>'Заказ отправлен'));
