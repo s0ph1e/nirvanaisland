@@ -38,10 +38,10 @@ $(document).ready(function() {
 	
 	$('#addCommentForm').ajaxForm({
 		success: function(data) {
-			data = eval('(' + data + ')');	// Преобразование JSON
-			if (data.response==1) {			// Если нет ошибок
-				$(data.html).hide().insertBefore('#addCommentContainer').slideDown(); // Плавное появление комментария
-				$('#textarea_comment').val('');		// Очистка textarea
+			data = eval('(' + data + ')');	
+			if (data.response==1) {			
+				$(data.html).hide().insertBefore('#addCommentContainer').slideDown(); 
+				$('#textarea_comment').val('');	
 			} 
 		}
 	});
@@ -67,9 +67,9 @@ $(document).ready(function() {
 			url: site_url + "/shopcart/update/" + this.id + '/' + $('#'+this.id).val()
 		}).done(function(data) { 
 			data = eval('(' + data + ')');
-			if(data.total_price == "0 грн.")
+			if($('#' + data.id).val()==0)
 			{
-				$('#total_' + data.id).parent().parent().hide();
+				$('#total_' + data.id).parent().parent().fadeOut();
 			}
 			else 
 			{
@@ -87,7 +87,7 @@ $(document).ready(function() {
 			url: site_url + "/shopcart/delete/" + this.id
 		}).done(function(data) { 
 			data = eval('(' + data + ')');
-			$('#total_' + data.id).parent().parent().hide();
+			$('#total_' + data.id).parent().parent().fadeOut();
 			$('#cart_message').html("В корзине " + data.all_qty + " товаров на сумму " + data.all_price + " грн.");
 		});
 		

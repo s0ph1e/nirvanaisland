@@ -12,7 +12,7 @@ class Admin extends CI_Controller{
 	
 	function index()
 	{
-		$this->view_buyings();
+		redirect(site_url('admin/view_buyings'));
 	}
 	
 	function view_buyings()		// Просмотр заказов
@@ -70,7 +70,7 @@ class Admin extends CI_Controller{
 			$data['types'] = array('new'=>'Только новые', 'new_in_process'=>'Новые и в процессе', 'all'=>'Все заказы');
 			$data['cur_type'] = $view_type;
 			
-			$this->load->view('header', array('title'=>'Заказы'));
+			$this->load->view('admin_header', array('title'=>'Заказы'));
 			$this->load->view('admin_buyings_view', $data);
 			$this->load->view('footer');
 		}

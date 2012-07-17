@@ -38,11 +38,5 @@ class Comment extends CI_Controller{
 		}
 	}
 	
-	function get_comment($content_id)
-	{
-		$data['comments'] = $this->comment_model->get_comments($content_id);
-		$data['comments_count'] = count($data['comments']);
-		
-	}
 	
 }

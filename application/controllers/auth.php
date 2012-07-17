@@ -302,8 +302,10 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Регистрация";
 
-		if ($this->ion_auth->logged_in())
+		// Если пользователь авторизирован
+		if ($this->ion_auth->logged_in())	
 		{
+			// То отправляем его обратно
 			redirect(getenv("HTTP_REFERER"));
 		}
 
