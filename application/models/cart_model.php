@@ -46,7 +46,7 @@ class Cart_model extends CI_Model{
 		
 		foreach($cart as $key => $value)			// Добавление всех товаров в заказ
 		{
-			$this->db->insert('buying_items', array('buying_id'=>$order_id, 'product_id'=>$key, 'qty'=>$value));
+			$this->db->insert('buying_items', array('buying_id'=>$buying_id, 'product_id'=>$key, 'qty'=>$value));
 		}
 	}
 	

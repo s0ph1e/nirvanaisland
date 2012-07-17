@@ -18,7 +18,6 @@ class ShopCart extends CI_Controller{
 	function add($product_id)
 	{
 		$cart = $this->session->userdata('cart');
-		//$this->output->append_output(print_r($data), TRUE);
 		
 		// Если корзины не существует - создаем
 		if ($cart === FALSE)
@@ -32,9 +31,7 @@ class ShopCart extends CI_Controller{
 	{
 		$cart = $this->session->userdata('cart');
 		foreach($cart as $key => $value)
-		{
-			if($value == 0) $this->delete($key);	// Если количество 0, то удаляем товар
-			
+		{	
 			$product = $this->product_model->get_product_info($key);
 			$data['cart'][]=array(  'name'=>anchor('product/view/'.$key, $product->name),
 									'qty'=>'<input type="text" maxlength="3" class="qty_text" id='.$key.' value ='.$value.' onkeyup="this.value = this.value.replace (/\D/, \'\')">',
@@ -57,6 +54,7 @@ class ShopCart extends CI_Controller{
 		if(!is_numeric($new_count)) exit();		// Если новое значение не число
 		else 									// Если новое значение число
 		{
+			if($new_count == 0) {$this->delete($id);exit();}	// Если количество 0, то удаляем товар
 			$cart[$id] = $new_count;
 			$this->session->set_userdata('cart', $cart);
 			$product = $this->product_model->get_product_info($id);
