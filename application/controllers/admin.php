@@ -17,24 +17,8 @@ class Admin extends CI_Controller{
 	
 	function view_buyings()		// Просмотр заказов
 	{
-		$view_type = $this->session->userdata('admin_view_type');
 		
-		if($view_type == FALSE)
-		{
-			$this->session->set_userdata('admin_view_type', 'all');	
-		}
-		else
-		{
-			switch($view_type)			// В зависимости от типа просмотра выбираем только нужные записи
-			{
-				case 'new': $buyings = $this->cart_model->get_buyings(1);
-							break;
-				case 'new_in_process': $buyings = $this->cart_model->get_buyings(2);
-							break;
-				case 'all': $buyings = $this->cart_model->get_buyings(3);
-							break;
-				default: $data['message'] = 'Неверный запрос'; break;
-			}
+			$buyings = $this->cart_model->get_buyings();
 			
 			foreach($buyings as $row)		// Для каждого заказа получаем информацию
 			{	
@@ -58,48 +42,48 @@ class Admin extends CI_Controller{
 					$info['products'] .= anchor(site_url('product/view/'.$product_info->id), $product_info->name.' ('.$product->qty.')').'&nbsp;';
 				}
 				
-				// Статус заказа
-				$info['status'] = $this->cart_model->get_status_name($row->status_id);
 				
-				// Изменение статуса
-				$info['link'] = '<center>'.anchor(site_url('admin/change_status/'.$row->id), img('data/images/upd.png'), array('class'=>"cart_upd", 'title'=>"Следующее состояние"));
+				// Статус заказа
+				$buying_status = $this->cart_model->get_status_name($row->status_id);
+				
+				// Все статусы
+				$statuses = $this->cart_model->get_statuses();
+				
+				// Формирование селекта для изменения статуса
+				$info['status'] = '<select class="status_select" id='.$row->id.'>';
+				foreach ($statuses as $value)
+				{
+					if($buying_status == $value->status)
+					{
+						$info['status'].="<option selected value=".$value->id.">".$value->status."</option>";
+					}
+					else
+					{
+						$info['status'].="<option value=".$value->id.">".$value->status."</option>";
+					}
+				}
+				$info['status'] .= "</select>";
 				
 				// Массив для передачи в представление
 				$data['buyings'][] = $info;
 			}
-			$data['types'] = array('new'=>'Только новые', 'new_in_process'=>'Новые и в процессе', 'all'=>'Все заказы');
-			$data['cur_type'] = $view_type;
 			
 			$this->load->view('admin_header', array('title'=>'Заказы'));
 			$this->load->view('admin_buyings_view', $data);
 			$this->load->view('footer');
-		}
+		
 	}
 	
-	function change_status($id)
+	function change_status($id, $new_status)
 	{
-		if(!isset($id)||!$this->cart_model->buying_exist($id))
+		if(!isset($id)||!$this->cart_model->buying_exist($id)||!isset($new_status)||!$this->cart_model->status_exist($new_status))
 		{
-			redirect(getenv("HTTP_REFERER"));
+			exit('Fuck off, nigga!');
 		}
 		else
 		{
-			$this->cart_model->update_buying($id);
-			$this->view_buyings();
-		}
-	}
-	
-	function change_view_type($type)
-	{
-		if(!isset($type)&&!($type == 'new' || $type == 'new_in_process' || $type == 'all'))
-		{
-			redirect(getenv("HTTP_REFERER"));
-		}
-		else
-		{
-			$this->session->unset_userdata('admin_view_type');			
-			$this->session->set_userdata('admin_view_type', $type);	
-			$this->view_buyings();
+			$this->cart_model->update_buying($id, $new_status);
+			exit();
 		}
 	}
 }

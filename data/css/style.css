@@ -28,7 +28,7 @@ textarea{
 }
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
-#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type{
+#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type, .status_select{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -100,11 +100,13 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres{
+#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres, .status_select{
 	display:block;
 	border:1px solid #666;
 	margin:0 0 5px;
 	padding:5px;
+}
+#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres{
 	width:203px;
 }
 #frmsignin p {
@@ -422,6 +424,9 @@ a.btnsigninon, a.btnbasketon{
 }
 #cur_type:hover{
 	background:#666666;
+}
+.status_select{
+	width: 120px;
 }
 /*----------------------other---------------*/
 #message{

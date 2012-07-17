@@ -93,6 +93,17 @@ $(document).ready(function() {
 		
 		return false;
 	});
+	
+	$('.status_select').change(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: site_url + "/admin/change_status/" + this.id + "/" + $('#'+this.id).val()
+		}).done(function(data) { 
+			alert("aaa");
+		});
+		
+		return false;
+	});
 		
 });
 

@@ -50,10 +50,17 @@ class Cart_model extends CI_Model{
 		}
 	}
 	
-	function get_buyings($status_code)
+	function get_buyings()
 	{
-		$this->db->where('status_id <=',$status_code);
+		//$this->db->where('status_id <=',$status_code);
 		$query = $this->db->get('buyings');
+		
+		return $query->result();
+	}
+	
+	function get_statuses()
+	{
+		$query = $this->db->get('buying_statuses');
 		
 		return $query->result();
 	}
@@ -79,28 +86,25 @@ class Cart_model extends CI_Model{
 		return $query->row()->id;
 	}
 	
-	function update_buying($id)
+	function update_buying($id, $new_status)
 	{
-		// Получаем статус заказ
-		$status_id = (int)$this->db->get_where('buyings', array('id'=>$id))->row()->status_id;
-		
-		// Выбираем из таблицы следующий статус
-		$this->db->where('id >', $status_id);
-		$next_status = $this->db->get('buying_statuses', 1,0)->row()->id;
-		
-		// Обновляем запись в таблице заказов
-		if($next_status)
-		{
-			$this->db->where('id', $id);
-			$this->db->update('buyings', array('status_id'=>$next_status));
-			return true;
-		}
-		else return false;
+		$this->db->where('id', $id);
+		$this->db->update('buyings', array('status_id'=>$new_status));
 	}
 	
 	function buying_exist($id)
 	{
 		$query = $this->db->get_where('buyings', array('id' => $id));
+		if ($query->num_rows() > 0)
+		{
+			return true;
+		}
+		else return false;
+	}
+	
+	function status_exist($id)
+	{
+		$query = $this->db->get_where('buying_statuses', array('id' => $id));
 		if ($query->num_rows() > 0)
 		{
 			return true;
