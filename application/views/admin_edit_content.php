@@ -37,8 +37,16 @@
 		$this->table->set_template($tmpl);		// Применение шаблона
 		$this->table->set_heading('ID', 'Категория', 'Действия');	// Формирование заголовка
 		
-		$image = array('src'=>base_url('data/images/add.png'), 'align'=>'middle');
-		echo '<div class="p_admin">Подкатегории '.anchor(site_url('admin/cat_add/'.$cat_id), img($image), array('id'=>$cat_id, 'class'=>"cat_add", 'title'=>"Добавить")).'</div>';
+		// Название и кнопка добавления категории
+		echo '<div class="p_admin">Подкатегории '.anchor(site_url('admin/cat_add/'.$cat_id), img(base_url('data/images/add.png')), array('class'=>"cat_add", 'title'=>"Добавить")).'</div>';
+		echo '<div id="form_add_cat">';
+		echo form_open('admin/cat_add/'.$cat_id);
+		echo form_input(array('id'=>'cat_name', 'name'=>'cat_name'));
+		echo form_submit('submit', 'Добавить', 'id="adminbtn"');
+		echo form_close();
+		echo '</div>';
+		
+		// Вывод всех подкатегоирй
 		echo $this->table->generate($subcat_list);
 		$this->table->clear();
 	}
@@ -51,9 +59,12 @@
 			$items_list[] = array(	$row->id, 
 									'<img width="64" height="64" src='.base_url($row->thumb).'>',
 									$row->article, 
-									anchor(site_url('products/view'.$row->id), $row->name), 
-									character_limiter($row->description,128), 
-									$row->price.' грн');
+									anchor(site_url('product/view/'.$row->id), $row->name), 
+									'<p style="text-align:justify">'.character_limiter($row->description,256).'</p>', 
+									$row->price.' грн.',
+									anchor(site_url('admin/prod_delete/'.$key), img('data/images/edit.png'), array('id'=>$row->id, 'class'=>"prod_edit", 'title'=>"Редактировать")).'&nbsp;'.
+									anchor(site_url('admin/prod_edit/'.$key), img('data/images/delete.png'), array('id'=>$row->id, 'class'=>"prod_del", 'title'=>"Удалить"))
+									);
 		}
 		$tmpl = array (
                     'table_open'          => '<table border="0" class="admin_change_table">',
@@ -62,8 +73,12 @@
                     'row_alt_start'       => '<tr class="cart_white_row">', 			
               );
 		$this->table->set_template($tmpl);		// Применение шаблона
-		$this->table->set_heading('ID', 'img', 'Артикул', 'Название', 'Описание', 'Цена', 'Действия');	// Формирование заголовка
-		echo '<p class="p_admin">Товары в категории</p>';
+		$this->table->set_heading('ID', 'Фото', 'Артикул', 'Название', 'Описание', 'Цена', 'Действия');	// Формирование заголовка
+		
+		// Название и кнопка добавления товара
+		echo '<div class="p_admin">Товары в категории '.anchor(site_url('admin/prod_add/'.$cat_id), img(base_url('data/images/add.png')), array('class'=>"prod_add", 'title'=>"Добавить")).'</div>';
+		
+		// Вывод всех товаров
 		echo $this->table->generate($items_list);
 		$this->table->clear();
 	}

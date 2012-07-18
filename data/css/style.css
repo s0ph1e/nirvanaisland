@@ -29,7 +29,8 @@ textarea{
 }
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
-#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type, .status_select, #page{
+#form input[type=text],#form input[type=password], #submitbtn ,#adminbtn, #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type, .status_select, #page,
+#form_add_cat input[type=text], #form_add_cat{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -101,13 +102,15 @@ a.btnsigninon, a.btnbasketon{
 	behavior: url(border-radius.htc);
 	z-index:100;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres, .status_select{
+#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres,
+.status_select{
 	display:block;
 	border:1px solid #666;
 	margin:0 0 5px;
 	padding:5px;
 }
-#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], #textarea_addres{
+#frmsignin input[type=text], #frmsignin input[type=password], #form input[type=text],#form input[type=password], 
+#textarea_addres, #form_add_cat input[type=text]{
 	width:203px;
 }
 #frmsignin p {
@@ -116,7 +119,7 @@ a.btnsigninon, a.btnbasketon{
 #frmsignin label {
 	font-weight:normal;
 }
-#submitbtn , #commentbtn, #regbtn, #basketbtn, #ordbtn{
+#submitbtn , #commentbtn, #regbtn, #basketbtn, #ordbtn, #adminbtn{
 	background-color:#333;
 	border:1px solid #fff;
 	color:#fff;
@@ -125,7 +128,8 @@ a.btnsigninon, a.btnbasketon{
 	font-weight:bold;
 }
 #submitbtn:hover, #submitbtn:focus, #commentbtn:hover, #commentbtn:focus,
-#regbtn:hover, #regbtn:focus, #basketbtn:hover, #basketbtn:focus, #ordbtn:hover, #ordbtn:focus{
+#regbtn:hover, #regbtn:focus, #basketbtn:hover, #basketbtn:focus, #ordbtn:hover, #ordbtn:focus,
+#adminbtn:hover, #adminbtn:focus{
 	border:1px solid #000;
 	cursor:pointer;
 }
@@ -453,6 +457,22 @@ a.btnsigninon, a.btnbasketon{
 	font-weight:bold;
 	color: #666666;
 	vertical-align:middle;
+}
+#form_add_cat{
+	padding:10px;
+	background:#f9f9f9;
+	border:1px dashed #b2b2b2;
+	width: 320px;
+	display:none;
+	margin:5px;
+}
+#form_add_cat input[type=text]{
+	border:1px solid #666;
+	padding:5px;
+}
+#cat_name, #adminbtn{
+	display:inline;
+	margin: 0 5px 0 5px;
 }
 /*----------------------other---------------*/
 #message{

@@ -108,7 +108,21 @@ $(document).ready(function() {
 		
 		return false;
 	});
-		
+	
+	$('.cat_add').click(function(e) {
+		e.preventDefault();
+		$("#form_add_cat").slideDown()
+	});
+	
+	$('.cat_add').mouseup(function() {
+		return false;
+	});
+	
+	$(document).mouseup(function(e) {
+		if($(e.target).parents('#form_add_cat').length==0) {
+			$('#form_add_cat').slideUp();
+		};
+	});		
 });
 
 function validate(formData, jqForm, options) { 
