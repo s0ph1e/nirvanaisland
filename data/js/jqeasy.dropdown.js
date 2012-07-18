@@ -99,7 +99,11 @@ $(document).ready(function() {
 		$.ajax({
 			url: site_url + "/admin/change_status/" + this.id + "/" + $('#'+this.id).val()
 		}).done(function(data) { 
-			alert("aaa");
+			data = eval('(' + data + ')');
+			if(view_id!=3&&view_id != data.status)
+			{
+				$('#' + data.id).parent().parent().fadeOut();
+			}
 		});
 		
 		return false;

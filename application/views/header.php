@@ -55,10 +55,10 @@
 					
 					<div id="menu">
 						<ul>                                                                       
-						<li><a href="index.html">Главная</a></li>
-						<li><a href="about.html">О нас</a></li>
+						<li><a href=<?=site_url()?>>Главная</a></li>
+						<li <?php echo ($this->uri->rsegment(1) == 'page'&&$this->uri->rsegment(2) =='about')?'class="selected"':'';?>><a href=<?=site_url('page/about')?>>О нас</a></li>
 						<li <?php echo ($this->uri->rsegment(1) == 'catalog'||$this->uri->rsegment(1) =='product')?'class="selected"':'';?>><a href=<?=site_url('catalog');?>>Продукты</a></li>
-						<li><a href="specials.html">Контакты</a></li>
+						<li <?php echo ($this->uri->rsegment(1) == 'page'&&$this->uri->rsegment(2) =='contacts')?'class="selected"':'';?>><a href=<?=site_url('page/contacts')?>>Контакты</a></li>
 						</ul>
 					</div>			
 			   </div>
