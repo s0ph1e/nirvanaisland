@@ -7,7 +7,7 @@ class Admin extends CI_Controller{
         parent::__construct();
 		$this->load->model(array('cart_model', 'product_model', 'catalog_model'));
 		
-		if(!$this->ion_auth->is_admin()) redirect(getenv("HTTP_REFERER"));
+		if(!$this->ion_auth->is_admin()) redirect(site_url());
 	}
 	
 	function index()
@@ -120,6 +120,20 @@ class Admin extends CI_Controller{
 		$this->load->view('admin_header', array('title'=>'Изменение контента'));
 		$this->load->view('admin_edit_content', $data);
 		$this->load->view('footer');
+	}
+	
+	function cat_add($id)
+	{
+		if(!isset($id)||!$this->catalog_model->category_exist($id)) exit();
+		
+		$cat_name = $this->input->post('cat_name');
+		if($cat_name) 
+		{
+			$data['parent_id'] = $id;
+			$data['category'] = $cat_name;
+			$this->catalog_model->insert_category($data);
+			redirect(getenv("HTTP_REFERER"));
+		}
 	}
 }
 ?>

@@ -205,47 +205,5 @@ class Catalog extends CI_Controller{
 			$this->load->view('upload_form_view', $data);
 		}	
 	}
-
-	function add_category($cat_id)
-	{
-		// Проверка категории
-		$this->validate_parameters($cat_id);
-		
-		// Данные для передачи во вьюшку
-		$data['cat_id'] = $cat_id;
-		
-		// Библиотека валидации форм
-		$this->load->library('form_validation');
-		
-		// Установка правил валидации
-		$this->form_validation->set_rules('category', 'Категория', 'required|min_length[5]|max_length[32]');
-		
-		// Если отправлена форма
-		if(isset($_POST['submit_form']))		
-		{
-			// Если все хорошо
-			if($this->form_validation->run())
-			{
-				// Подготовка данных для передачи в модель
-				$_POST['parent_id'] = $cat_id;			// Категория товара
-				
-				// Добавление записи в БД
-				$this->catalog_model->insert_category($_POST);
-				
-				// Сообщение об успешном добавлении
-				$data['text'] = 'Данные успешно загружены на сервер. ';
-				$this->load->view('success_upload_view', $data);
-			}
-			else 	// Если что-то не так с полем
-			{
-				$data['text'] .= validation_errors();
-				$this->load->view('add_category_view', $data);
-			}
-		}
-		else
-		{
-			$this->load->view('add_category_view', $data);
-		}	
-	}
 }
 ?>
