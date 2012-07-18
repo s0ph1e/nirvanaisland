@@ -50,9 +50,15 @@ class Cart_model extends CI_Model{
 		}
 	}
 	
-	function get_buyings()
+	function get_buyings($status_code)
 	{
-		//$this->db->where('status_id <=',$status_code);
+		$query = $this->db->get_where('buyings', array('status_id'=>$status_code));
+		
+		return $query->result();
+	}
+	
+	function get_all_buyings()
+	{
 		$query = $this->db->get('buyings');
 		
 		return $query->result();

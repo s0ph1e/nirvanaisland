@@ -22,13 +22,14 @@ td, div{
 }
 img{
 	border:0;
+	vertical-align:middle;
 }
 textarea{
 	overflow:auto;
 }
 #path, #subcategories, .item, .item_img, #addCommentContainer, #textarea_comment, #textarea_addres, #view_item, .comment, #message, #error, #ordbtn ,
 a.btnsignin, a.btnsignout, a.btnbasket, #frmsignin input[type=text], #frmsignin input[type=password],#form,#form_error,
-#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type, .status_select{
+#form input[type=text],#form input[type=password], #submitbtn , #commentbtn, #regbtn, #basketbtn, .qty_text, #cur_type, .status_select, #page{
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
@@ -234,6 +235,7 @@ a.btnsigninon, a.btnbasketon{
 	color:#990000;
 	font-size: 25px;
 	font-weight:bold;
+	font-style:italic;
 }
 #path{
 	margin:5px;
@@ -346,10 +348,12 @@ a.btnsigninon, a.btnbasketon{
 	margin-top: 20px;
 }
 /*-----------------------cart---------------------*/
-.cart_table, .admin_table{
-	width:100%;
+.cart_table, .admin_table, .admin_change_table{
 	border:1px solid #dddddd;
 	margin:10px 0;
+}
+.cart_table, .admin_table, .admin_change_table{
+	width:100%;
 }
 .cart_table td,.cart_table th{
 	padding:10px;
@@ -359,7 +363,7 @@ a.btnsigninon, a.btnbasketon{
 .cart_table td a{
 	font-weight:bold;
 }
-.cart_table_heading, .cart_grey_row{
+.cart_table_heading{
 	background-color:#dddddd;
 }
 .cart_white_row{
@@ -404,6 +408,20 @@ a.btnsigninon, a.btnbasketon{
 	padding:10px;
 	vertical-align:middle;
 }
+.admin_change_table td, .admin_change_table th{
+	padding:10px;
+	vertical-align:middle;
+	text-align:center;
+}
+.admin_change_table td a{
+	font-weight:bold;
+	font-size:16px;
+}
+#admin_path{
+	
+	margin:5px 5px 15px 5px;
+	font-size:16px;
+}
 #view_types{
 	background:url(../images/filter.png) top left no-repeat;
 	padding: 5px 0 5px 37px;
@@ -428,6 +446,14 @@ a.btnsigninon, a.btnbasketon{
 .status_select{
 	width: 120px;
 }
+.p_admin{
+	padding-left:5px;
+	padding-bottom:0;
+	font-size:16px;
+	font-weight:bold;
+	color: #666666;
+	vertical-align:middle;
+}
 /*----------------------other---------------*/
 #message{
 	margin:5px;
@@ -436,3 +462,20 @@ a.btnsigninon, a.btnbasketon{
 	border:1px dashed #b2b2b2;
 }
 .error {color:red;}
+#page{
+	font-size:16px;
+	text-align:justify;
+	margin: 10px;
+	padding:10px;
+	background:url(../images/content_background.png) repeat-x;
+}
+#page p:first-letter{
+	font-size:150%;
+}
+#flower_img{
+	width:233px;
+	height:230px;
+	background:url(../images/flower.png) no-repeat;
+	display:inline-block;
+}
+#page li {padding:5px;}
