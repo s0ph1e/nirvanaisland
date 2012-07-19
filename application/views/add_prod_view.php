@@ -1,4 +1,4 @@
-<?='<p id="admin_path">'.anchor(site_url('admin_edit_content/'.$cat_id),  'Назад').'</p>';?>
+<?='<p id="admin_path">'.anchor(site_url('admin/edit_content/'.$cat_id),  'Назад').'</p>';?>
 <div id="name">Добавление товара</div>
 
 <?php if($text)

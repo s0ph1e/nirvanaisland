@@ -20,7 +20,7 @@
 					<div id="menu">
 						<ul>          
 						<li <?php echo ($this->uri->rsegment(1) == 'admin'&&$this->uri->rsegment(2) =='view_buyings')?'class="selected"':'';?>><a href=<?=site_url('admin/view_buyings');?>>Заказы</a></li>
-						<li <?php echo ($this->uri->rsegment(1) == 'admin'&&$this->uri->rsegment(2) =='edit_content')?'class="selected"':'';?>><a href=<?=site_url('admin/edit_content');?>>Изменение контента</a></li>
+						<li <?php echo ($this->uri->rsegment(1) == 'admin'&&($this->uri->rsegment(2) =='edit_content'||$this->uri->rsegment(2) =='prod_edit'||$this->uri->rsegment(2) =='prod_add'))?'class="selected"':'';?>><a href=<?=site_url('admin/edit_content');?>>Изменение контента</a></li>
 						<li><a href=<?=site_url();?>>Выход</a></li>
 						</ul>
 					</div>			

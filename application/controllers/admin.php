@@ -173,15 +173,15 @@ class Admin extends CI_Controller{
 		{
 			// Получение изображения и папки загрузки 
 			$upload = $this->_upload_img();
-			$image = $upload['image'];
-			$upload_path = $upload['upload_path'];
 			
 			// Получение результата валидации (тру или массив ошибок)
 			$data = $this->_validate();
 			
 			// Если все хорошо и с полями, и с файлом
-			if($data==true&&$image)
+			if($data['text']===false&&$upload!==false)
 			{	
+				$image = $upload['image'];
+				$upload_path = $upload['upload_path'];
 				$this->_resize($image['full_path']);
 				$this->_thumb($image['full_path']);
 				
@@ -200,10 +200,15 @@ class Admin extends CI_Controller{
 			}
 			else 	// Если что-то не так с полями или загрузкой файла
 			{
-				$data['text'].=$this->upload->display_errors();
+				$error = $this->upload->display_errors();
+				if ($data['text']===false)
+					$data['text'] = $error;
+				else
+					$data['text'] .= $error;
 				unlink(realpath($image['full_path']));
 			}
 		}
+		
 		$data['cat_id'] = $cat_id;
 		$this->load->view('admin_header', array('title'=>'Добавление товара'));
 		$this->load->view('add_prod_view', $data);
@@ -220,15 +225,15 @@ class Admin extends CI_Controller{
 		{
 			// Получение изображения и папки загрузки 
 			$upload = $this->_upload_img();
-			$image = $upload['image'];
-			$upload_path = $upload['upload_path'];
 			
 			// Получение результата валидации (тру или массив ошибок)
 			$data = $this->_validate();
 			
 			// Если все хорошо и с полями, и с файлом
-			if($data===true&&$upload!==false)
+			if($data['text']===false && ($upload !== false || !is_uploaded_file($_FILES['item_image']['tmp_name'])))
 			{	
+				$image = $upload['image'];
+				$upload_path = $upload['upload_path'];
 				if($image)
 				{
 					$this->_resize($image['full_path']);
@@ -253,15 +258,21 @@ class Admin extends CI_Controller{
 			}
 			else 	// Если что-то не так с полями или загрузкой файла
 			{
-				$data = array();
-				$data['text'].=$this->upload->display_errors();
+				$error = $this->upload->display_errors();
+				//if (!is_array($data)) $data = array();
+				if ($data['text']===false)
+					$data['text'] = $error;
+				elseif (is_uploaded_file($_FILES['item_image']['tmp_name']))
+					$data['text'] .= $error;
+					
 				if($image) $this->_delete_file($image['full_path']);
 			}
 		}
-		// инфо о продукте
-		$prod_info = (array)$this->product_model->get_product_info($id);
-		$this->load->view('admin_header', array('title'=>'Добавление товара'));
-		$this->load->view('edit_prod_view', array_merge($data, $prod_info));
+		else
+			$data = (array)$this->product_model->get_product_info($id);
+		$data['id'] = $id;
+		$this->load->view('admin_header', array('title'=>'Изменение товара'));
+		$this->load->view('edit_prod_view', $data);
 		$this->load->view('footer');
 	}
 	
@@ -333,16 +344,22 @@ class Admin extends CI_Controller{
 		$this->form_validation->set_rules('description', 'Описание', 'required');
 		$this->form_validation->set_rules('price', 'Цена', 'required|greater_than[0]');
 		
-		if($this->form_validation->run()) return true;
+		if($this->form_validation->run())
+		{
+			$data['text'] = false;
+		}
 		else 
 		{
-			$data['name'] = $this->form_validation->set_value('name');
-			$data['article'] = $this->form_validation->set_value('article');					
-			$data['description'] = $this->form_validation->set_value('description');
-			$data['price'] = $this->form_validation->set_value('price');								
 			$data['text'] = validation_errors();
-			return $data;
 		}
+		
+		$data['name'] = $this->form_validation->set_value('name');
+		$data['article'] = $this->form_validation->set_value('article');					
+		$data['description'] = $this->form_validation->set_value('description');
+		$data['price'] = $this->form_validation->set_value('price');								
+		
+		
+		return $data;
 	}
 	
 	function _delete_file($img)
