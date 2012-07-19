@@ -142,7 +142,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var id = this.id.split('_')[1];
 		var category = $('#cat_name_' + id);
-		category.html('<input type="text" name="newname" id="new_cat_name_' + id + '" value="' + category.find('a').html() + '"><a href="#" class="confirm_cat_edit" id="' + id + '"><img src="' + base_url + '/data/images/ok.png' + '"></a>');
+		category.html('<input type="text" class="newname" name="newname" id="new_cat_name_' + id + '" value="' + category.find('a').html() + '"><a href="#" class="confirm_cat_edit" id="' + id + '"><img src="' + base_url + '/data/images/ok.png' + '"></a>');
 		return false;
 	});
 	
@@ -159,6 +159,17 @@ $(document).ready(function() {
 			$('#cat_name_' + data.id).html(data.link);
 		});
 		
+		return false;
+	});
+	
+	$('.prod_del').click(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: site_url + "/admin/prod_del/" + this.id.split('_')[1]
+		}).done(function(data) { 
+			data = eval('(' + data + ')');
+			$('#prod-del_' + data.id).parent().parent().fadeOut();
+		});
 		return false;
 	});
 });
