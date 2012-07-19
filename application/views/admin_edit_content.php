@@ -67,7 +67,7 @@
 									anchor(site_url('product/view/'.$row->id), $row->name), 
 									'<p style="text-align:justify">'.character_limiter($row->description,256).'</p>', 
 									$row->price.' грн.',
-									anchor(site_url('admin/prod_edit/'.$key), img('data/images/edit.png'), array('id'=>'prod-edit_'.$row->id, 'class'=>"prod_edit", 'title'=>"Редактировать")).'&nbsp;'.
+									anchor(site_url('admin/prod_edit/'.$row->id), img('data/images/edit.png'), array('id'=>'prod-edit_'.$row->id, 'class'=>"prod_edit", 'title'=>"Редактировать")).'&nbsp;'.
 									anchor('#', img('data/images/delete.png'), array('id'=>'prod-del_'.$row->id, 'class'=>"prod_del", 'title'=>"Удалить"))
 									);
 		}

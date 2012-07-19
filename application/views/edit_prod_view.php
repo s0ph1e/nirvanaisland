@@ -4,7 +4,7 @@
 <?php if($text)
 echo "<div id='form_error'>$text</div>";?>
 <div id="form">
-<?php echo form_open_multipart('admin/prod_add/'.$cat_id);?>
+<?php echo form_open_multipart('admin/prod_edit/'.$id);?>
   <p>Артикул:<br />
   <?php echo form_input(array('name'=>'article','value'=>$article));?>
   </p>
@@ -25,7 +25,7 @@ echo "<div id='form_error'>$text</div>";?>
   <input type="file" name="item_image" size="20" />
   </p>
   
-  <p><?php echo form_submit('submit_add', 'Добавить','id="regbtn"');?></p>
+  <p><?php echo form_submit('submit_edit', 'Изменить','id="regbtn"');?></p>
 
 <?php echo form_close();?>
 </div>

@@ -363,6 +363,7 @@ a.btnsigninon, a.btnbasketon{
 	padding:10px;
 	text-align:center;
 	vertical-align:middle;
+	word-wrap: break-word;
 }
 .cart_table td a{
 	font-weight:bold;
@@ -411,11 +412,13 @@ a.btnsigninon, a.btnbasketon{
 .admin_table td, .admin_table th{
 	padding:10px;
 	vertical-align:middle;
+	word-wrap: break-word;
 }
 .admin_change_table td, .admin_change_table th{
 	padding:10px;
 	vertical-align:middle;
 	text-align:center;
+	word-wrap: break-word;
 }
 .admin_change_table td a{
 	font-weight:bold;
