@@ -1,5 +1,5 @@
-<?='<p id="admin_path">'.anchor(site_url('admin_edit_content/'.$cat_id),  'Назад').'</p>';?>
-<div id="name">Добавление товара</div>
+<?='<p id="admin_path">'.anchor(site_url('admin/edit_content/'.$parent_id),  'Назад').'</p>';?>
+<div id="name">Редактирование товара</div>
 
 <?php if($text)
 echo "<div id='form_error'>$text</div>";?>

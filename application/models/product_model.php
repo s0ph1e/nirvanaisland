@@ -30,7 +30,8 @@ class Product_model extends CI_Model{
 	
 	function delete_product($id)
 	{
-		$this->db->delete('items', array('id' => $id)); 
+		$this->db->delete('items', array('id' => $id));
+		$this->db->delete('comments', array('content_id'=>$id));
 	}
 	
 	function update_product($id, $data)
