@@ -32,6 +32,11 @@ class Product_model extends CI_Model{
 	{
 		$this->db->delete('items', array('id' => $id)); 
 	}
+	
+	function update_product($id, $data)
+	{
+		$this->db->update('items', $data , array('id' => $id)); 
+	}
 }
 	
 ?>
