@@ -124,6 +124,7 @@ class Admin extends CI_Controller{
 	
 	function cat_add($id)
 	{
+		$id = intval($id);
 		if(!isset($id)||!$this->catalog_model->category_exist($id)) exit();
 		
 		$cat_name = $this->input->post('cat_name');
@@ -132,16 +133,26 @@ class Admin extends CI_Controller{
 			$data['parent_id'] = $id;
 			$data['category'] = $cat_name;
 			$this->catalog_model->insert_category($data);
-			redirect(getenv("HTTP_REFERER"));
+			redirect(site_url('admin/edit_content/'.$id));
 		}
 	}
 	
 	function cat_del($id)
 	{
+		$id = intval($id);
 		if(!isset($id)||!$this->catalog_model->category_exist($id)) exit();
 		
 		$this->catalog_model->delete_category($id);
 		exit(json_encode(array('id'=>$id)));
+	}
+	
+	function cat_edit($id)
+	{
+		$id = intval($id);
+		if(!isset($id)||!$this->catalog_model->category_exist($id)) exit();
+		$newname = $this->input->post('newname');
+		$this->catalog_model->edit_category($id, $newname);
+		exit(json_encode(array('id'=>$id, 'link'=>'<span id="cat_name_'.$id.'">'.anchor('admin/edit_content/'.$id, $newname).'</span>',)));
 	}
 }
 ?>

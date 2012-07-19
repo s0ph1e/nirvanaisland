@@ -14,7 +14,7 @@ a{
 	color:#990000;
 }
 p{
-	padding:5px 0 5px 5px;
+	padding:5px 0 5px 0;
 	margin:0px;
 }
 td, div{
@@ -457,6 +457,7 @@ a.btnsigninon, a.btnbasketon{
 	font-weight:bold;
 	color: #666666;
 	vertical-align:middle;
+	margin-top:30px;
 }
 #form_add_cat{
 	padding:10px;
@@ -474,6 +475,12 @@ a.btnsigninon, a.btnbasketon{
 	display:inline;
 	margin: 0 5px 0 5px;
 }
+ .message{
+	margin:5px;
+	padding:5px;
+	background:#f9f9f9;
+	color:#666666;
+ }
 /*----------------------other---------------*/
 #message{
 	margin:5px;

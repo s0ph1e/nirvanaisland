@@ -32,9 +32,9 @@
 		foreach ($subcategories as $row)
 		{
 			$subcat_list[] = array($row->id, 
-									anchor('admin/edit_content/'.$row->id, $row->category),
-									anchor(site_url('admin/cat_delete/'.$key), img('data/images/edit.png'), array('id'=>'del_'.$row->id, 'class'=>"cat_edit", 'title'=>"Редактировать")).'&nbsp;'.
-									anchor(site_url('admin/cat_edit/'.$key), img('data/images/delete.png'), array('id'=>'upd_'.$row->id, 'class'=>"cat_del", 'title'=>"Удалить"))
+									'<span id="cat_name_'.$row->id.'">'.anchor('admin/edit_content/'.$row->id, $row->category).'</span>',
+									anchor('#', img('data/images/edit.png'), array('id'=>'upd_'.$row->id, 'class'=>"cat_edit", 'title'=>"Редактировать")).'&nbsp;'.
+									anchor('#', img('data/images/delete.png'), array('id'=>'del_'.$row->id, 'class'=>"cat_del", 'title'=>"Удалить"))
 									);
 		}
 		$tmpl = array (
@@ -42,7 +42,7 @@
                     'heading_row_start'   => '<tr class="cart_table_heading">',
                     'row_start'           => '<tr class="cart_white_row">',
                     'row_alt_start'       => '<tr class="cart_white_row">', 					
-					);
+					);	
 	
 		$this->table->set_template($tmpl);		// Применение шаблона
 		$this->table->set_heading('ID', 'Категория', 'Действия');	// Формирование заголовка
@@ -51,9 +51,12 @@
 		echo $this->table->generate($subcat_list);
 		$this->table->clear();
 	}
-	else echo '<p>Подкатегорий нет</p>';
+	else echo '<p class="message">Подкатегорий нет</p>';
 	
 	// Выводим товары
+	// Название и кнопка добавления товара
+	echo '<div class="p_admin">Товары в категории '.anchor(site_url('admin/prod_add/'.$cat_id), img(base_url('data/images/add.png')), 
+													array('class'=>"prod_add", 'title'=>"Добавить")).'</div>';
 	if($items)
 	{
 		foreach ($items as $row)
@@ -64,8 +67,8 @@
 									anchor(site_url('product/view/'.$row->id), $row->name), 
 									'<p style="text-align:justify">'.character_limiter($row->description,256).'</p>', 
 									$row->price.' грн.',
-									anchor(site_url('admin/prod_delete/'.$key), img('data/images/edit.png'), array('id'=>$row->id, 'class'=>"prod_edit", 'title'=>"Редактировать")).'&nbsp;'.
-									anchor(site_url('admin/prod_edit/'.$key), img('data/images/delete.png'), array('id'=>$row->id, 'class'=>"prod_del", 'title'=>"Удалить"))
+									anchor(site_url('admin/prod_edit/'.$key), img('data/images/edit.png'), array('id'=>$row->id, 'class'=>"prod_edit", 'title'=>"Редактировать")).'&nbsp;'.
+									anchor('#', img('data/images/delete.png'), array('id'=>$row->id, 'class'=>"prod_del", 'title'=>"Удалить"))
 									);
 		}
 		$tmpl = array (
@@ -77,10 +80,8 @@
 		$this->table->set_template($tmpl);		// Применение шаблона
 		$this->table->set_heading('ID', 'Фото', 'Артикул', 'Название', 'Описание', 'Цена', 'Действия');	// Формирование заголовка
 		
-		// Название и кнопка добавления товара
-		echo '<div class="p_admin">Товары в категории '.anchor(site_url('admin/prod_add/'.$cat_id), img(base_url('data/images/add.png')), array('class'=>"prod_add", 'title'=>"Добавить")).'</div>';
-		
 		// Вывод всех товаров
 		echo $this->table->generate($items_list);
 		$this->table->clear();
 	}
+	else echo '<p class="message">Товаров нет</p>';

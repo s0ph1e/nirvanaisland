@@ -126,12 +126,39 @@ $(document).ready(function() {
 
 	$('.cat_del').click(function(e) {
 		e.preventDefault();
+		if (confirm("При удалении категории будут также удалены все подкатегории и товары.\nВы подтверждаете удаление?"))
+		{
+			$.ajax({
+				url: site_url + "/admin/cat_del/" + this.id.split('_')[1]
+			}).done(function(data) { 
+				data = eval('(' + data + ')');
+				$('#del_' + data.id).parent().parent().fadeOut();
+			});
+		}
+		return false;
+	});
+	
+	$('.cat_edit').click(function(e) {
+		e.preventDefault();
+		var id = this.id.split('_')[1];
+		var category = $('#cat_name_' + id);
+		category.html('<input type="text" name="newname" id="new_cat_name_' + id + '" value="' + category.find('a').html() + '"><a href="#" class="confirm_cat_edit" id="' + id + '"><img src="' + base_url + '/data/images/ok.png' + '"></a>');
+		return false;
+	});
+	
+	$('.confirm_cat_edit').live('click', function(e) {
+		e.preventDefault();
+		var id = this.id;
+
 		$.ajax({
-			url: site_url + "/admin/cat_del/" + this.id.split('_')[1]
-		}).done(function(data) { 
+			type: 'POST',
+			url: site_url + "/admin/cat_edit/" + id,
+			data: { newname: $('#new_cat_name_' + id).val()}
+		}).done(function(data) {
 			data = eval('(' + data + ')');
-			$('#del_' + data.id).parent().parent().fadeOut();
+			$('#cat_name_' + data.id).html(data.link);
 		});
+		
 		return false;
 	});
 });
