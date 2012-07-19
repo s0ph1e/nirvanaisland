@@ -122,7 +122,18 @@ $(document).ready(function() {
 		if($(e.target).parents('#form_add_cat').length==0) {
 			$('#form_add_cat').slideUp();
 		};
-	});		
+	});	
+
+	$('.cat_del').click(function(e) {
+		e.preventDefault();
+		$.ajax({
+			url: site_url + "/admin/cat_del/" + this.id.split('_')[1]
+		}).done(function(data) { 
+			data = eval('(' + data + ')');
+			$('#del_' + data.id).parent().parent().fadeOut();
+		});
+		return false;
+	});
 });
 
 function validate(formData, jqForm, options) { 
