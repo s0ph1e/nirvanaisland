@@ -17,14 +17,24 @@
 	}
 	
 	// Выводим категории
+	
+	// Название и кнопка добавления категории
+	echo '<div class="p_admin">Подкатегории '.anchor(site_url('admin/cat_add/'.$cat_id), img(base_url('data/images/add.png')), array('class'=>"cat_add", 'title'=>"Добавить")).'</div>';
+	echo '<div id="form_add_cat">';
+	echo form_open('admin/cat_add/'.$cat_id);
+	echo form_input(array('id'=>'cat_name', 'name'=>'cat_name'));
+	echo form_submit('submit', 'Добавить', 'id="adminbtn"');
+	echo form_close();
+	echo '</div>';
+		
 	if($subcategories) // Если подкатегории есть
 	{
 		foreach ($subcategories as $row)
 		{
 			$subcat_list[] = array($row->id, 
 									anchor('admin/edit_content/'.$row->id, $row->category),
-									anchor(site_url('admin/cat_delete/'.$key), img('data/images/edit.png'), array('id'=>$row->id, 'class'=>"cat_edit", 'title'=>"Редактировать")).'&nbsp;'.
-									anchor(site_url('admin/cat_edit/'.$key), img('data/images/delete.png'), array('id'=>$row->id, 'class'=>"cat_del", 'title'=>"Удалить"))
+									anchor(site_url('admin/cat_delete/'.$key), img('data/images/edit.png'), array('id'=>'del_'.$row->id, 'class'=>"cat_edit", 'title'=>"Редактировать")).'&nbsp;'.
+									anchor(site_url('admin/cat_edit/'.$key), img('data/images/delete.png'), array('id'=>'upd_'.$row->id, 'class'=>"cat_del", 'title'=>"Удалить"))
 									);
 		}
 		$tmpl = array (
@@ -37,19 +47,11 @@
 		$this->table->set_template($tmpl);		// Применение шаблона
 		$this->table->set_heading('ID', 'Категория', 'Действия');	// Формирование заголовка
 		
-		// Название и кнопка добавления категории
-		echo '<div class="p_admin">Подкатегории '.anchor(site_url('admin/cat_add/'.$cat_id), img(base_url('data/images/add.png')), array('class'=>"cat_add", 'title'=>"Добавить")).'</div>';
-		echo '<div id="form_add_cat">';
-		echo form_open('admin/cat_add/'.$cat_id);
-		echo form_input(array('id'=>'cat_name', 'name'=>'cat_name'));
-		echo form_submit('submit', 'Добавить', 'id="adminbtn"');
-		echo form_close();
-		echo '</div>';
-		
 		// Вывод всех подкатегоирй
 		echo $this->table->generate($subcat_list);
 		$this->table->clear();
 	}
+	else echo '<p>Подкатегорий нет</p>';
 	
 	// Выводим товары
 	if($items)

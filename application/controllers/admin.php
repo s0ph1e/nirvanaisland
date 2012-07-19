@@ -17,7 +17,7 @@ class Admin extends CI_Controller{
 	
 	function view_buyings($type)		// Просмотр заказов
 	{
-		if(!isset($type)||!$this->cart_model->status_exist($type)) $type = 3;
+		if(!isset($type)||!$this->cart_model->status_exist($type)) $type = 1;
 	
 		if ($type == 3) $buyings = $this->cart_model->get_all_buyings();
 		else $buyings = $this->cart_model->get_buyings($type);
@@ -134,6 +134,14 @@ class Admin extends CI_Controller{
 			$this->catalog_model->insert_category($data);
 			redirect(getenv("HTTP_REFERER"));
 		}
+	}
+	
+	function cat_del($id)
+	{
+		if(!isset($id)||!$this->catalog_model->category_exist($id)) exit();
+		
+		$this->catalog_model->delete_category($id);
+		exit(json_encode(array('id'=>$id)));
 	}
 }
 ?>
