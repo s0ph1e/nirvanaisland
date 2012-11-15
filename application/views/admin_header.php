@@ -2,7 +2,8 @@
 <html>
 <head>
 	<meta  http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src=<?=base_url('data/js/jQuery.js');?>></script>
+	
 	<script type="text/javascript" src=<?=base_url('data/js/jqeasy.dropdown.js');?>></script>
 	<script type="text/javascript" src=<?=base_url('data/js/jquery.form-2.4.0.min.js');?>></script>
 	<script type="text/javascript" src=<?=base_url('data/js/jquery.blockUI.js');?>></script>
