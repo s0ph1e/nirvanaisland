@@ -125,7 +125,7 @@ class Admin extends CI_Controller{
 	
 	function cat_add($id)
 	{
-		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) exit();
+		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) redirect(site_url('admin/edit_content'));
 		
 		$cat_name = $this->input->post('cat_name');
 		if($cat_name) 
@@ -139,7 +139,7 @@ class Admin extends CI_Controller{
 	
 	function cat_del($id)
 	{
-		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) exit();
+		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) redirect(site_url('admin/edit_content'));
 		
 		$this->catalog_model->delete_category($id);
 		exit(json_encode(array('id'=>$id)));
@@ -147,7 +147,7 @@ class Admin extends CI_Controller{
 	
 	function cat_edit($id)
 	{
-		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) exit();
+		if(!is_numeric($id)||!$this->catalog_model->category_exist($id)) redirect(site_url('admin/edit_content'));
 		$newname = $this->input->post('newname');
 		$this->catalog_model->edit_category($id, $newname);
 		exit(json_encode(array('id'=>$id, 'link'=>'<span id="cat_name_'.$id.'">'.anchor('admin/edit_content/'.$id, $newname).'</span>',)));
@@ -155,7 +155,7 @@ class Admin extends CI_Controller{
 	
 	function prod_del($id)
 	{
-		if(!is_numeric($id)||!$this->product_model->product_exist($id)) exit();
+		if(!is_numeric($id)||!$this->product_model->product_exist($id)) redirect(site_url('admin/edit_content'));
 		
 		$product = $this->product_model->get_product_info($id);
 		$this->product_model->delete_product($id);
@@ -166,7 +166,7 @@ class Admin extends CI_Controller{
 	
 	function prod_add($cat_id)
 	{
-		if(!is_numeric($cat_id)||!$this->catalog_model->category_exist($cat_id)) exit();
+		if(!is_numeric($cat_id)||!$this->catalog_model->category_exist($cat_id)) redirect(site_url('admin/edit_content'));
 		
 		// Если отправлена форма
 		if(isset($_POST['submit_add']))		
@@ -217,7 +217,7 @@ class Admin extends CI_Controller{
 	
 	function prod_edit($id)
 	{
-		if(!is_numeric($id)||!$this->product_model->product_exist($id)) exit();
+		if(!is_numeric($id)||!$this->product_model->product_exist($id)) redirect(site_url('admin/edit_content'));
 		$data=array();
 		
 		// Если отправлена форма
@@ -269,7 +269,7 @@ class Admin extends CI_Controller{
 			}
 		}
 		else
-			$data = (array)$this->product_model->get_product_info($id);
+		$data = (array)$this->product_model->get_product_info($id);
 		$data['id'] = $id;
 		$this->load->view('admin_header', array('title'=>'Изменение товара'));
 		$this->load->view('edit_prod_view', $data);

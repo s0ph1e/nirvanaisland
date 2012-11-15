@@ -149,7 +149,7 @@ $(document).ready(function() {
 	$('.confirm_cat_edit').live('click', function(e) {
 		e.preventDefault();
 		var id = this.id;
-
+		if($('#new_cat_name_' + id).val()!=''){
 		$.ajax({
 			type: 'POST',
 			url: site_url + "/admin/cat_edit/" + id,
@@ -158,7 +158,7 @@ $(document).ready(function() {
 			data = eval('(' + data + ')');
 			$('#cat_name_' + data.id).html(data.link);
 		});
-		
+		}
 		return false;
 	});
 	

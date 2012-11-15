@@ -1,5 +1,4 @@
-</div>
-       
+</div>     
 <div class="footer">
 		<a href="#">Главная</a>
 		<a href="#">О нас</a>

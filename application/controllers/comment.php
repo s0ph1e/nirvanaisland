@@ -36,7 +36,5 @@ class Comment extends CI_Controller{
 			$error = '<p class="error">'.validation_errors().'</p>';
 			exit(json_encode(array('response'=>0, 'html'=>$error)));
 		}
-	}
-	
-	
+	}	
 }
